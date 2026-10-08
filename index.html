@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Fabi's Grill · Brazilian Churrasco & Grill · Temple Bar, Dublin</title>
+<meta name="description" content="Fabi's Grill — Autêntico churrasco brasileiro no coração de Temple Bar, Dublin. Picanha, feijoada, parmegiana e muito mais.">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+    --char: #0d0906;
+    --char-2: #14100b;
+    --panel: #1d1610;
+    --panel-2: #261c14;
+    --panel-3: #2f2318;
+    --line: #3d2c1d;
+    --line-soft: rgba(217,168,96,0.12);
+    --ember: #e2762a;
+    --ember-deep: #b34d16;
+    --gold: #d9a860;
+    --gold-bright: #eeb75e;
+    --cream: #f4ead9;
+    --muted: #a89680;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Work Sans', -apple-system, sans-serif;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition: all 0.4s var(--ease);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--char);
+    background-image:
+        radial-gradient(ellipse 1000px 600px at 50% -5%, rgba(226,118,42,0.14), transparent 60%),
+        radial-gradient(ellipse 800px 500px at 90% 100%, rgba(217,168,96,0.06), transparent 60%);
+    font-family: var(--font-body);
+    color: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    touch-action: pan-x pan-y;
+}
+
+/* Textura de ruído */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; }
+
+::selection { background: var(--ember); color: var(--char); }
+
+::-webkit-scrollbar { width: 10px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--char-2); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ember); }
+
+/* ============ HEADER ============ */
+header {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    z-index: 1000;
+    transition: var(--transition);
+}
+header.scrolled {
+    padding: 14px 40px;
+    background: rgba(13,9,6,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--cream);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+.logo:hover { transform: translateY(-1px); }
+.logo .flame {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    color: var(--char);
+    font-size: 1rem;
+    box-shadow: 0 4px 14px rgba(226,118,42,0.35);
+}
+.logo em { color: var(--gold); font-style: italic; }
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 34px;
+    align-items: center;
+}
+nav a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 6px 0;
+    transition: var(--transition);
+}
+nav a:not(.btn-order)::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--ember);
+    transition: width 0.4s var(--ease);
+}
+nav a:not(.btn-order):hover { color: var(--gold); }
+nav a:not(.btn-order):hover::after { width: 100%; }
+
+.btn-order {
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    color: var(--char) !important;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 18px rgba(226,118,42,0.35);
+    transition: var(--transition);
+}
+.btn-order:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(226,118,42,0.5);
+    filter: brightness(1.08);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--cream);
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+/* ============ HERO ============ */
+.hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 30px 80px;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 800px 500px at 50% 40%, rgba(226,118,42,0.18), transparent 65%),
+        linear-gradient(180deg, transparent 0%, var(--char) 100%);
+    z-index: 1;
+}
+
+/* Chamas animadas no fundo */
+.hero-embers {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+.hero-embers span {
+    position: absolute;
+    bottom: -10px;
+    width: 4px; height: 4px;
+    background: var(--ember);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--ember), 0 0 16px rgba(226,118,42,0.5);
+    animation: rise linear infinite;
+    opacity: 0;
+}
+.hero-embers span:nth-child(1) { left: 12%; animation-duration: 9s; animation-delay: 0s; }
+.hero-embers span:nth-child(2) { left: 28%; animation-duration: 11s; animation-delay: 1.5s; width: 3px; height: 3px; }
+.hero-embers span:nth-child(3) { left: 46%; animation-duration: 8s; animation-delay: 3s; }
+.hero-embers span:nth-child(4) { left: 63%; animation-duration: 12s; animation-delay: 0.8s; width: 5px; height: 5px; }
+.hero-embers span:nth-child(5) { left: 79%; animation-duration: 10s; animation-delay: 2.2s; }
+.hero-embers span:nth-child(6) { left: 91%; animation-duration: 13s; animation-delay: 4s; width: 3px; height: 3px; }
+
+@keyframes rise {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+}
+
+.hero-logo-wrap {
+    position: relative;
+    width: 260px;
+    max-width: 70%;
+    margin: 0 auto 24px;
+}
+.hero-logo-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -25%;
+    background: radial-gradient(circle, rgba(226,118,42,0.5) 0%, rgba(226,118,42,0.15) 42%, transparent 72%);
+    filter: blur(14px);
+    border-radius: 50%;
+    animation: embers-glow 5s ease-in-out infinite;
+    z-index: 0;
+}
+@keyframes embers-glow {
+    0%, 100% { opacity: 0.55; transform: scale(0.95); }
+    50% { opacity: 0.95; transform: scale(1.08); }
+}
+.hero-logo {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    display: block;
+    animation: logo-breathe 5s ease-in-out infinite;
+}
+@keyframes logo-breathe {
+    0%, 100% { filter: drop-shadow(0 0 12px rgba(226,118,42,0.3)); }
+    50% { filter: drop-shadow(0 0 28px rgba(226,118,42,0.65)); }
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    border: 1px solid rgba(226,118,42,0.35);
+    border-radius: 40px;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 26px;
+    background: rgba(226,118,42,0.06);
+    backdrop-filter: blur(10px);
+    animation: fadeInDown 0.9s var(--ease) both;
+}
+.hero-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ember);
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 8px var(--ember);
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.hero h1 {
+    font-size: clamp(2.4rem, 6.5vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    margin-bottom: 22px;
+    letter-spacing: -0.02em;
+    animation: fadeInUp 1.1s var(--ease) 0.2s both;
+}
+.hero h1 em {
+    color: var(--gold-bright);
+    font-style: italic;
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+}
+
+.hero-sub {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--muted);
+    margin-bottom: 34px;
+    font-weight: 400;
+    animation: fadeInUp 1.1s var(--ease) 0.35s both;
+}
+
+.hero-meta {
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    animation: fadeInUp 1.1s var(--ease) 0.5s both;
+}
+.hero-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+}
+.hero-meta-item i {
+    color: var(--ember);
+    font-size: 0.85rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1.1s var(--ease) 0.65s both;
+}
+
+.btn-primary, .btn-ghost {
+    padding: 15px 34px;
+    border-radius: 40px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    color: var(--char);
+    box-shadow: 0 8px 22px rgba(226,118,42,0.35);
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(226,118,42,0.5);
+    filter: brightness(1.08);
+}
+.btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    border-color: rgba(217,168,96,0.3);
+}
+.btn-ghost:hover {
+    border-color: var(--ember);
+    color: var(--gold-bright);
+    transform: translateY(-3px);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fadeIn 1.5s var(--ease) 1.2s both;
+}
+.scroll-indicator .line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, var(--ember), transparent);
+    animation: scroll-line 2s infinite;
+}
+@keyframes scroll-line {
+    0%, 100% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+}
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ============ MENU SECTION ============ */
+.menu-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+}
+
+.menu-intro {
+    text-align: center;
+    margin-bottom: 50px;
+    padding-top: 40px;
+}
+.menu-intro .eyebrow {
+    display: inline-block;
+    color: var(--ember);
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    position: relative;
+    padding: 0 30px;
+}
+.menu-intro .eyebrow::before,
+.menu-intro .eyebrow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 1px;
+    background: var(--ember);
+    opacity: 0.5;
+}
+.menu-intro .eyebrow::before { left: 0; }
+.menu-intro .eyebrow::after { right: 0; }
+.menu-intro h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+.menu-intro h2 em { color: var(--gold-bright); font-style: italic; }
+.menu-intro p {
+    color: var(--muted);
+    max-width: 620px;
+    margin: 0 auto;
+    font-weight: 300;
+    font-size: 0.95rem;
+}
+
+/* ============ TABS ============ */
+.tabs-container {
+    position: sticky;
+    top: 66px;
+    z-index: 100;
+    background: rgba(13,9,6,0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 16px 0;
+    margin: 0 -40px 40px;
+    border-bottom: 1px solid var(--line-soft);
+    border-top: 1px solid var(--line-soft);
+}
+.tabs-wrapper {
+    display: flex;
+    gap: 8px;
+    padding: 0 40px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+}
+.tabs-wrapper::-webkit-scrollbar { height: 3px; }
+.tabs-wrapper::-webkit-scrollbar-track { background: transparent; }
+.tabs-wrapper::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-body);
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    scroll-snap-align: start;
+    touch-action: manipulation;
+}
+.tab-btn:hover {
+    color: var(--cream);
+    border-color: rgba(217,168,96,0.3);
+}
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    border-color: transparent;
+    color: var(--char);
+    box-shadow: 0 4px 14px rgba(226,118,42,0.35);
+}
+
+/* ============ MENU SECTIONS ============ */
+.menu-section { display: none; }
+.menu-section.active-section { display: block; animation: fadeIn 0.4s var(--ease); }
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw, 2rem);
+    font-weight: 500;
+    border-left: 3px solid var(--ember);
+    padding-left: 1rem;
+    margin-bottom: 32px;
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.section-title .count {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+}
+
+/* ============ CARDS GRID ============ */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 26px;
+}
+
+.dish-card {
+    background: var(--panel);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    position: relative;
+}
+.dish-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(226,118,42,0.35);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    background: var(--panel-2);
+}
+
+.image-container {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--panel-2);
+}
+.dish-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s var(--ease);
+    touch-action: manipulation;
+}
+.dish-card:hover .dish-img { transform: scale(1.06); }
+
+.image-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,9,6,0.7) 0%, transparent 45%);
+    pointer-events: none;
+}
+
+.zoom-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(13,9,6,0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(217,168,96,0.2);
+    color: var(--gold-bright);
+    font-size: 0.75rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+}
+.zoom-btn:hover {
+    background: var(--ember);
+    color: var(--char);
+    border-color: var(--ember);
+    transform: scale(1.1);
+}
+
+.dish-info { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+
+.dish-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.dish-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.25;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.hot-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    color: var(--char);
+    font-family: var(--font-body);
+    font-size: 0.55rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 10px rgba(226,118,42,0.4);
+    vertical-align: middle;
+}
+
+.fire-icon {
+    display: inline-block;
+    font-size: 0.85rem;
+    animation: flicker 2.2s ease-in-out infinite;
+}
+@keyframes flicker {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px #ff7a1a); }
+    50% { opacity: 0.82; filter: drop-shadow(0 0 8px #ff4d12); }
+}
+
+.dish-price {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+    background: var(--char-2);
+    border: 1px solid var(--line);
+    padding: 5px 14px;
+    border-radius: 30px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.dish-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    font-weight: 300;
+    flex: 1;
+}
+
+.allergen {
+    font-size: 0.65rem;
+    color: var(--gold);
+    background: var(--panel-3);
+    border: 1px solid var(--line);
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    align-self: flex-start;
+}
+
+.choose-sides-btn {
+    background: transparent;
+    border: 1px solid var(--ember);
+    color: var(--ember);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-body);
+    width: 100%;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    touch-action: manipulation;
+}
+.choose-sides-btn:hover {
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    color: var(--char);
+    border-color: transparent;
+    box-shadow: 0 4px 16px rgba(226,118,42,0.35);
+}
+
+/* ============ ABOUT CTA ============ */
+.menu-footer-cta {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 70px;
+    padding-top: 50px;
+    border-top: 1px solid var(--line-soft);
+}
+.cta-btn {
+    background: transparent;
+    border: 1px solid rgba(217,168,96,0.3);
+    color: var(--gold-bright);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 15px 32px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-body);
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    touch-action: manipulation;
+}
+.cta-btn:hover {
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    color: var(--char);
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(226,118,42,0.4);
+}
+.cta-btn.deliveroo {
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    color: var(--char);
+    border-color: transparent;
+    box-shadow: 0 8px 22px rgba(226,118,42,0.35);
+}
+.cta-btn.deliveroo:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 14px 34px rgba(226,118,42,0.5);
+}
+
+/* ============ FOOTER ============ */
+footer {
+    background: #080503;
+    padding: 70px 40px 30px;
+    border-top: 1px solid var(--line-soft);
+}
+.footer-grid {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+.footer-brand .logo { margin-bottom: 20px; }
+.footer-brand p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 340px;
+    margin-bottom: 20px;
+}
+.footer-social {
+    display: flex;
+    gap: 10px;
+}
+.footer-social a {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+.footer-social a:hover {
+    background: var(--ember);
+    border-color: var(--ember);
+    color: var(--char);
+    transform: translateY(-3px);
+}
+
+.footer-col h4 {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 11px; color: var(--muted); font-size: 0.85rem; font-weight: 300; }
+.footer-col a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 300;
+    transition: var(--transition);
+}
+.footer-col a:hover { color: var(--gold-bright); padding-left: 4px; }
+.footer-col i { color: var(--ember); margin-right: 8px; font-size: 0.75rem; }
+
+.footer-bottom {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding-top: 28px;
+    border-top: 1px solid var(--line-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 300;
+}
+.developer-credit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+}
+.developer-logo { height: 26px; width: auto; }
+.developer-text strong { color: var(--gold); font-weight: 600; }
+.developer-tagline { font-size: 0.55rem; color: #7a6650; display: block; margin-top: 2px; letter-spacing: 1px; }
+
+/* ============ LIGHTBOX ============ */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.96);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+.lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
+.lightbox-content {
+    max-width: 90%;
+    max-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: pan-x pan-y pinch-zoom;
+}
+.lightbox-img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    touch-action: pan-x pan-y pinch-zoom;
+}
+.lightbox-caption {
+    margin-top: 20px;
+    color: var(--gold-bright);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    text-align: center;
+    padding: 8px;
+    letter-spacing: 0.5px;
+}
+.close-lightbox {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 46px; height: 46px;
+    font-size: 1.3rem;
+    color: var(--cream);
+    cursor: pointer;
+    background: rgba(226,118,42,0.15);
+    border: 1px solid var(--ember);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    transition: var(--transition);
+    touch-action: manipulation;
+}
+.close-lightbox:hover {
+    background: var(--ember);
+    color: var(--char);
+    transform: rotate(90deg);
+}
+
+/* ============ ABOUT MODAL ============ */
+.about-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    overflow-y: auto;
+    padding: 20px;
+}
+.about-modal.active { display: block; animation: fadeIn 0.3s ease; }
+
+.about-content {
+    max-width: 680px;
+    margin: 40px auto;
+    background: linear-gradient(180deg, var(--panel) 0%, var(--char-2) 100%);
+    border-radius: 28px;
+    padding: 50px 44px;
+    border: 1px solid var(--line);
+    position: relative;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+}
+.about-content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--ember), transparent);
+    border-radius: 3px;
+}
+
+.close-about {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 42px; height: 42px;
+    font-size: 1.1rem;
+    color: var(--cream);
+    cursor: pointer;
+    background: rgba(226,118,42,0.15);
+    border: 1px solid var(--ember);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    touch-action: manipulation;
+}
+.close-about:hover {
+    background: var(--ember);
+    color: var(--char);
+    transform: rotate(90deg);
+}
+
+.about-title {
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+.about-subtitle {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--gold-bright);
+    text-align: center;
+    margin-bottom: 32px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.about-text {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 300;
+}
+
+.about-section-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin: 28px 0 12px;
+    border-left: 3px solid var(--ember);
+    padding-left: 0.9rem;
+}
+
+.values-list {
+    list-style: none;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+}
+.values-list li {
+    padding: 6px 0;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 300;
+}
+.values-list li::before {
+    content: "🔥";
+    font-size: 0.75rem;
+}
+
+.about-signature {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.95rem;
+    color: var(--gold-bright);
+    font-family: var(--font-display);
+    font-style: italic;
+}
+
+/* ============ REVEAL ============ */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ============ RESPONSIVIDADE ============ */
+@media (max-width: 1024px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+}
+
+@media (max-width: 768px) {
+    header { padding: 16px 20px; }
+    header.scrolled { padding: 12px 20px; }
+
+    .menu-toggle { display: block; }
+
+    nav ul {
+        position: fixed;
+        top: 0; right: -100%;
+        width: 78%;
+        max-width: 320px;
+        height: 100vh;
+        background: rgba(20,16,11,0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+        padding: 40px;
+        transition: right 0.5s var(--ease);
+        border-left: 1px solid var(--line);
+    }
+    nav ul.open { right: 0; }
+    nav a { font-size: 1rem; }
+
+    .hero { padding: 100px 20px 70px; min-height: 88vh; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-ghost { width: 100%; max-width: 300px; justify-content: center; }
+    .hero-meta { gap: 14px; }
+    .hero-meta-item { font-size: 0.75rem; }
+
+    .menu-wrapper { padding: 0 20px 70px; }
+    .tabs-container { margin: 0 -20px 30px; top: 60px; }
+    .tabs-wrapper { padding: 0 20px; }
+
+    .cards-grid { grid-template-columns: 1fr; gap: 20px; }
+
+    .about-content { padding: 40px 24px; margin: 20px auto; border-radius: 22px; }
+    .about-title { font-size: 1.9rem; }
+    .values-list { grid-template-columns: 1fr; }
+
+    footer { padding: 50px 20px 24px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+    .footer-brand p { margin: 0 auto 20px; }
+    .footer-social { justify-content: center; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+}
+
+@media (min-width: 1400px) {
+    .cards-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .hero-embers { display: none; }
+}
+
+:focus-visible {
+    outline: 2px solid var(--ember);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+    <a href="#" class="logo">
+        <span class="flame">🔥</span>
+        FABI'S <em>GRILL</em>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <nav aria-label="Main navigation">
+        <ul id="navList">
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#" onclick="openAboutModal(); return false;">About</a></li>
+            <li><a href="#contact">Visit</a></li>
+            <li>
+                <a href="https://deliveroo.ie/menu/Dublin/city-hall/fabis-grill-temple-bar?day=today&geohash=gc7x2yq7c5xq&time=ASAP"
+                   target="_blank" rel="noopener noreferrer" class="btn-order">
+                   Order Delivery
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-embers" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-logo-wrap">
+            <img class="hero-logo" src="logo-fabis.png" alt="Fabi's Grill" onerror="this.style.display='none'">
+        </div>
+
+        <div class="hero-badge">
+            <span class="dot"></span>
+            Brazilian Churrasco · Temple Bar
+        </div>
+
+        <h1>Fire. Flavor. <em>Soul.</em></h1>
+        <p class="hero-sub">Autêntico churrasco brasileiro no coração de Dublin</p>
+
+        <div class="hero-meta">
+            <span class="hero-meta-item"><i class="fas fa-clock"></i> Open daily · 11:30am–9pm</span>
+            <span class="hero-meta-item"><i class="fas fa-fire"></i> Premium cuts</span>
+            <span class="hero-meta-item"><i class="fas fa-map-marker-alt"></i> 8 Essex Street East</span>
+        </div>
+
+        <div class="hero-actions">
+            <a href="#menu" class="btn-primary">
+                Explorar Menu <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="https://deliveroo.ie/menu/Dublin/city-hall/fabis-grill-temple-bar?day=today&geohash=gc7x2yq7c5xq&time=ASAP"
+               target="_blank" rel="noopener noreferrer" class="btn-ghost">
+               <i class="fas fa-motorcycle"></i> Delivery
+            </a>
+        </div>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+        <span>Menu</span>
+        <span class="line"></span>
+    </div>
+</section>
+
+<!-- MENU -->
+<div class="menu-wrapper" id="menu">
+    <div class="menu-intro reveal">
+        <span class="eyebrow">Menu</span>
+        <h2>Nossa <em>Seleção</em></h2>
+        <p>Do churrasco clássico aos clássicos brasileiros, cada prato é preparado com fogo, alma e ingredientes frescos.</p>
+    </div>
+
+    <div class="tabs-container">
+        <div class="tabs-wrapper" id="tabs-wrapper">
+            <button class="tab-btn active" data-tab="maincourse">🥩 Main</button>
+            <button class="tab-btn" data-tab="sidemeals">🍚 Side Meals</button>
+            <button class="tab-btn" data-tab="students">🎓 Students</button>
+            <button class="tab-btn" data-tab="vegetarian">🌱 Vegan</button>
+            <button class="tab-btn" data-tab="chefspecial">👑 Chef</button>
+            <button class="tab-btn" data-tab="kids">🍟 Kids</button>
+            <button class="tab-btn" data-tab="sides">🥔 Sides</button>
+            <button class="tab-btn" data-tab="burgers">🍔 Burgers</button>
+            <button class="tab-btn" data-tab="pasteis">🥟 Pastéis</button>
+            <button class="tab-btn" data-tab="toppings">🧀 Toppings</button>
+            <button class="tab-btn" data-tab="desserts">🍰 Desserts</button>
+            <button class="tab-btn" data-tab="drinks">🥤 Drinks</button>
+        </div>
+    </div>
+
+    <div id="maincourse" class="menu-section active-section"><h2 class="section-title">🥩 Main Course <span class="count" data-count-for="maincourse"></span></h2><div class="cards-grid" id="maincourse-grid"></div></div>
+    <div id="sidemeals" class="menu-section"><h2 class="section-title">🍚 Side Meals <span class="count" data-count-for="sidemeals"></span></h2><div class="cards-grid" id="sidemeals-grid"></div></div>
+    <div id="students" class="menu-section"><h2 class="section-title">🎓 Students Meal <span class="count" data-count-for="students"></span></h2><div class="cards-grid" id="students-grid"></div></div>
+    <div id="vegetarian" class="menu-section"><h2 class="section-title">🌱 Vegetarian <span class="count" data-count-for="vegetarian"></span></h2><div class="cards-grid" id="vegetarian-grid"></div></div>
+    <div id="chefspecial" class="menu-section"><h2 class="section-title">👑 Chef's Special <span class="count" data-count-for="chefspecial"></span></h2><div class="cards-grid" id="chefspecial-grid"></div></div>
+    <div id="kids" class="menu-section"><h2 class="section-title">🍟 Kids Menu <span class="count" data-count-for="kids"></span></h2><div class="cards-grid" id="kids-grid"></div></div>
+    <div id="sides" class="menu-section"><h2 class="section-title">🥔 Sides <span class="count" data-count-for="sides"></span></h2><div class="cards-grid" id="sides-grid"></div></div>
+    <div id="burgers" class="menu-section"><h2 class="section-title">🍔 Burgers & Snacks <span class="count" data-count-for="burgers"></span></h2><div class="cards-grid" id="burgers-grid"></div></div>
+    <div id="pasteis" class="menu-section"><h2 class="section-title">🥟 Pastéis Brasileiros <span class="count" data-count-for="pasteis"></span></h2><div class="cards-grid" id="pasteis-grid"></div></div>
+    <div id="toppings" class="menu-section"><h2 class="section-title">🧀 Toppings · Add-ons <span class="count" data-count-for="toppings"></span></h2><div class="cards-grid" id="toppings-grid"></div></div>
+    <div id="desserts" class="menu-section"><h2 class="section-title">🍰 Desserts <span class="count" data-count-for="desserts"></span></h2><div class="cards-grid" id="desserts-grid"></div></div>
+    <div id="drinks" class="menu-section"><h2 class="section-title">🥤 Drinks <span class="count" data-count-for="drinks"></span></h2><div class="cards-grid" id="drinks-grid"></div></div>
+
+    <div class="menu-footer-cta reveal">
+        <button class="cta-btn" onclick="openAboutModal()">
+            <i class="fas fa-book-open"></i> About Us
+        </button>
+        <a href="https://deliveroo.ie/menu/Dublin/city-hall/fabis-grill-temple-bar?day=today&geohash=gc7x2yq7c5xq&time=ASAP"
+           target="_blank" rel="noopener noreferrer" class="cta-btn deliveroo">
+           <i class="fas fa-motorcycle"></i> Order Delivery
+        </a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <a href="#" class="logo">
+                <span class="flame">🔥</span>
+                FABI'S <em>GRILL</em>
+            </a>
+            <p>Autêntico churrasco brasileiro no coração de Temple Bar. Fogo, sabor e alma em cada prato desde 2019.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Tripadvisor"><i class="fab fa-tripadvisor"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h4>Menu</h4>
+            <ul>
+                <li><a href="#menu">Main Course</a></li>
+                <li><a href="#menu">Chef's Special</a></li>
+                <li><a href="#menu">Pastéis</a></li>
+                <li><a href="#menu">Desserts</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Visit Us</h4>
+            <ul>
+                <li><i class="fas fa-map-marker-alt"></i> 8 Essex Street East, Temple Bar, Dublin 2</li>
+                <li><i class="fas fa-clock"></i> Open daily · 11:30am–9pm</li>
+                <li><i class="fas fa-phone"></i> +353 1 000 0000</li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Info</h4>
+            <ul>
+                <li><a href="#" onclick="openAboutModal(); return false;">About Us</a></li>
+                <li><a href="#">Allergens</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span>© 2026 Fabi's Grill. All rights reserved.</span>
+        <div class="developer-credit">
+            <img class="developer-logo" src="logo-eotech.png" alt="EOTECH" onerror="this.style.display='none'">
+            <div class="developer-text">
+                <span>Developed by <strong>EOTECH</strong></span>
+                <span class="developer-tagline">EXPERIENCE. DESIGN. CODE</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ABOUT MODAL -->
+<div id="aboutModal" class="about-modal" onclick="closeAboutModalOnClick(event)">
+    <div class="about-content" onclick="event.stopPropagation()">
+        <button class="close-about" onclick="closeAboutModal()" aria-label="Close">✕</button>
+
+        <h1 class="about-title">About Us</h1>
+        <p class="about-subtitle">Bringing the Taste of Brazil to the Heart of Dublin</p>
+
+        <p class="about-text">Founded in 2019, Fabi's Grill Parnell was created with a simple mission: to share the authentic flavors of Brazilian cuisine with the people of Dublin. Since opening its doors, the restaurant has become a welcoming destination for both the Brazilian community and food lovers eager to experience the rich culinary traditions of Brazil.</p>
+
+        <p class="about-text">Located in the city center, Fabi's Grill combines traditional recipes, quality ingredients, and warm hospitality to create a genuine Brazilian dining experience. Every dish is prepared with care, celebrating the flavors, culture, and spirit that make Brazilian food so special.</p>
+
+        <p class="about-text">Over the years, Fabi's Grill has earned a reputation for generous portions, authentic recipes, and a commitment to customer satisfaction. Signature dishes such as Picanha, Feijoada, Parmegiana, Stroganoff, and a variety of traditional Brazilian snacks have made the restaurant a favorite among locals and visitors alike.</p>
+
+        <p class="about-text">More than just a restaurant, Fabi's Grill is a place where people come together to enjoy great food, celebrate Brazilian culture, and create memorable moments with family and friends.</p>
+
+        <h2 class="about-section-title">🎯 Our Mission</h2>
+        <p class="about-text">To deliver the authentic taste of Brazil through high-quality food, exceptional service, and a welcoming atmosphere that makes every guest feel at home.</p>
+
+        <h2 class="about-section-title">👁️ Our Vision</h2>
+        <p class="about-text">To be recognized as Ireland's leading Brazilian restaurant, connecting people through outstanding food, culture, and hospitality.</p>
+
+        <h2 class="about-section-title">💎 Our Values</h2>
+        <ul class="values-list">
+            <li>Authentic Brazilian flavors</li>
+            <li>Quality in every dish</li>
+            <li>Warm and friendly service</li>
+            <li>Passion for excellence</li>
+            <li>Respect for tradition</li>
+            <li>Commitment to satisfaction</li>
+            <li>Community & cultural connection</li>
+        </ul>
+
+        <h2 class="about-section-title">🏠 A Taste of Home</h2>
+        <p class="about-text">Whether you're looking for a traditional Brazilian meal, a quick snack, or a place to gather with friends and family, Fabi's Grill is proud to bring a little piece of Brazil to Dublin.</p>
+
+        <p class="about-signature">Welcome to Fabi's Grill — where every meal is served with Brazilian passion and hospitality. 🇧🇷✨</p>
+    </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="close-lightbox" onclick="closeLightbox()" aria-label="Close">✕</button>
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <img id="lightbox-img" class="lightbox-img" src="" alt="">
+    </div>
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+</div>
+
+<script>
+/* ======================== IMAGENS ======================== */
+const sideImages = {
+    rice: "images/side-arroz.jpg",
+    beans: "images/side-feijao.jpg",
+    fries: "images/side-batata-frita.jpg",
+    cassavaFlour: "images/side-farofa.jpg",
+    mayoPotatoSalad: "images/side-salada-batata.jpg",
+    vinaigrette: "images/side-vinagrete.jpg",
+    leafSalad: "images/side-salada-verde.jpg",
+    shoestringPotato: "images/side-batata-palha.jpg",
+    crispyOnion: "images/side-cebola-crocante.jpg",
+    friedEggs: "images/side-ovos-fritos.jpg",
+    feijoadaExtra: "images/side-feijoada-extra.jpg",
+    feijaoTropeiroSmall: "images/side-feijao-tropeiro.jpg",
+    feijaoTropeiroLarge: "images/side-feijao-tropeiro.jpg",
+    sweetcornCheese: "images/side-milho-queijo.jpg",
+    twoPicanhas: "images/side-2-picanhas.jpg",
+    onePicanha: "images/side-1-picanha.jpg",
+    twoGrilledBeef: "images/side-2-carnes.jpg",
+    twoGrilledChicken: "images/side-2-frangos.jpg"
+};
+
+const mainImages = {
+    churrascoDois: "images/main-churrasco-dois.jpg",
+    contraFile: "images/main-contra-file.jpg",
+    picanhaCasa: "images/main-picanha-casa.jpg",
+    picanhaSimples: "images/picanha-simples.jpg",
+    feijoada: "images/main-feijoada.jpg",
+    parmegiana: "images/main-parmegiana.jpg",
+    bifeMilho: "images/main-bife-milho.jpg",
+    tilapia: "images/main-tilapia.jpg",
+    strogonoff: "images/main-strogonoff.jpg"
+};
+
+const sideMealImages = {
+    rice: "images/side-arroz.jpg",
+    beans: "images/side-feijao.jpg",
+    farofa: "images/side-farofa.jpg",
+    fries: "images/side-batata-frita.jpg",
+    vinaigrette: "images/side-vinagrete.jpg",
+    feijaoTropeiro: "images/side-feijao-tropeiro.jpg",
+    leafSalad: "images/side-salada-verde.jpg",
+    mayoPotatoSalad: "images/side-salada-batata.jpg"
+};
+
+const burgerImg = "images/burger-placeholder.jpg";
+const pastelImg = "images/pastel-placeholder.jpg";
+const dessertImg = "images/dessert-placeholder.jpg";
+const drinkImg = "images/drink-placeholder.jpg";
+const studentImg = "images/student-placeholder.jpg";
+const vegImg = "images/veg-placeholder.jpg";
+const kidsImg = "images/kids-placeholder.jpg";
+const toppingImg = "images/topping-placeholder.jpg";
+
+/* ======================== BEST SELLERS ======================== */
+const hotItems = [
+    "PICANHA SIMPLES",
+    "PICANHA DA CASA",
+    "FEIJOADA TRADICIONAL",
+    "PARMEGIANA",
+    "BIFE/FRANGO COM CREME DE MILHO",
+    "MILANESA (CARNE/FRANGO)",
+    "PF BIFE/FRANGO ACEBOLADO"
+];
+
+/* ======================== MODAIS ======================== */
+function openAboutModal() {
+    document.getElementById('aboutModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeAboutModal() {
+    document.getElementById('aboutModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+function closeAboutModalOnClick(event) {
+    if (event.target === document.getElementById('aboutModal')) closeAboutModal();
+}
+
+function openLightbox(imgSrc, itemName) {
+    document.getElementById('lightbox-img').src = imgSrc;
+    document.getElementById('lightbox-caption').textContent = itemName;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeLightbox(); closeAboutModal(); }
+});
+
+/* ======================== CARD FACTORY ======================== */
+function createCard(name, price, desc, allergen, imgSrc, showSideButton = false) {
+    const isHot = hotItems.includes(name.toUpperCase());
+    return { name, price, desc, allergen, img: imgSrc, showSideButton, isHot };
+}
+
+function goToSideMeals() {
+    const sideMealsTab = document.querySelector('.tab-btn[data-tab="sidemeals"]');
+    if (sideMealsTab) {
+        sideMealsTab.click();
+        setTimeout(() => {
+            document.getElementById('sidemeals')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+    }
+}
+
+/* ======================== DADOS ======================== */
+const mains = [
+    createCard("CHURRASCO PARA DOIS", "€59", "Mix of picanha, Toscana sausage & grilled chicken. Served with 4 sides of your choice.", "G1", mainImages.churrascoDois, true),
+    createCard("CONTRA FILÉ A CAVALO", "€18.95", "Prime sirloin steak with fried egg. Served with 3 sides of your choice.", "E", mainImages.contraFile, true),
+    createCard("PICANHA DA CASA", "€22.50", "2 succulent prime picanha steaks. Served with 5 sides of your choice.", "G1", mainImages.picanhaCasa, true),
+    createCard("PICANHA SIMPLES", "€18.50", "1 prime picanha steak. Served with 3 sides of your choice.", "G1", mainImages.picanhaSimples, true),
+    createCard("FEIJOADA TRADICIONAL", "€18.45", "Traditional black bean stew with meats. Served with rice, farofa, vinaigrette, cabbage, pork belly & orange.", "G1; G4", mainImages.feijoada, false),
+    createCard("PARMEGIANA", "€17.95", "Breaded beef or chicken with tomato sauce & mozzarella. Served with rice and potato salad.", "G1; D; E", mainImages.parmegiana, false),
+    createCard("BIFE/FRANGO COM CREME DE MILHO", "€15.95", "Breaded steak or chicken with creamy cheesy sweetcorn sauce. Served with rice and fries.", "G1; D", mainImages.bifeMilho, false),
+    createCard("TILAPIA", "€16.50", "2 breaded tilapia fillets with rice, beans, fries and salad.", "G1; F; SB", mainImages.tilapia, false),
+    createCard("STROGONOFF (CARNE/FRANGO)", "€15.95", "Beef or chicken stroganoff in creamy sauce. Served with rice and shoestring potatoes or fries.", "G1; D; MS", mainImages.strogonoff, false)
+];
+
+const students = [
+    createCard("PF BIFE OU FRANGO ACEBOLADO", "€14.99", "Grilled beef or chicken with sautéed onions, rice, beans and fries or salad.", "G1", studentImg, false),
+    createCard("FEIJOADA SIMPLES", "€14.99", "Traditional black bean stew with meats. Served with rice, farofa and cabbage.", "G1; G4", studentImg, false),
+    createCard("MILANESA (CARNE/FRANGO)", "€14.99", "Breaded beef or chicken deep fried with rice, beans and fries.", "G1; D; E", studentImg, false),
+    createCard("PICANHA OFFER", "€15.50", "1 grilled picanha steak served with fries or salad.", "G1", studentImg, false)
+];
+
+const sideMeals = [
+    createCard("RICE", "", "White rice. (may contain G1)", "G1", sideMealImages.rice, false),
+    createCard("BEANS", "", "Black or carioca beans. (may contain G1)", "G1", sideMealImages.beans, false),
+    createCard("FAROFA", "", "Toasted cassava flour. (may contain G1; G4)", "G1; G4", sideMealImages.farofa, false),
+    createCard("FRIES", "", "Crispy french fries.", "", sideMealImages.fries, false),
+    createCard("VINAIGRETTE", "", "Fresh tomato & onion vinaigrette.", "", sideMealImages.vinaigrette, false),
+    createCard("FEIJÃO TROPEIRO", "", "Beans with farofa, egg & bacon.", "G1; G4; E", sideMealImages.feijaoTropeiro, false),
+    createCard("LEAF SALAD WITH TOMATO", "", "Mixed green salad with tomato.", "", sideMealImages.leafSalad, false),
+    createCard("MAYONNAISE POTATO SALAD", "", "Creamy potato salad with mayo.", "E", sideMealImages.mayoPotatoSalad, false)
+];
+
+const sides = [
+    createCard("RICE", "€4.50", "White rice.", "G1", sideImages.rice, false),
+    createCard("BEANS", "€4.50", "Black or carioca beans.", "G1", sideImages.beans, false),
+    createCard("FRIES", "€4.50", "Crispy french fries.", "", sideImages.fries, false),
+    createCard("CASSAVA FLOUR", "€2", "Toasted cassava flour (farofa).", "G1; G4", sideImages.cassavaFlour, false),
+    createCard("MAYONNAISE POTATO SALAD", "€4.50", "Creamy potato salad with mayo.", "E", sideImages.mayoPotatoSalad, false),
+    createCard("VINAIGRETTE", "€2.50", "Fresh tomato & onion vinaigrette.", "", sideImages.vinaigrette, false),
+    createCard("LEAF SALAD", "€4.50", "Mixed green salad.", "", sideImages.leafSalad, false),
+    createCard("SHOESTRING POTATO", "€4", "Crispy shoestring potatoes.", "G1", sideImages.shoestringPotato, false),
+    createCard("CRISPY ONION", "€2", "Crispy fried onions.", "G1", sideImages.crispyOnion, false),
+    createCard("FRIED EGGS (2UN)", "€3", "Two fried eggs.", "E", sideImages.friedEggs, false),
+    createCard("FEIJOADA EXTRA", "€10.50", "Extra feijoada portion.", "G1", sideImages.feijoadaExtra, false),
+    createCard("FEIJÃO TROPEIRO (Small)", "€5.50", "Beans with farofa, egg & bacon.", "G1; G4; E", sideImages.feijaoTropeiroSmall, false),
+    createCard("FEIJÃO TROPEIRO (Large)", "€9.95", "Beans with farofa, egg & bacon.", "G1; G4; E", sideImages.feijaoTropeiroLarge, false),
+    createCard("SWEETCORN & CHEESE SAUCE", "€3.95", "Creamy sweetcorn with cheese.", "D", sideImages.sweetcornCheese, false),
+    createCard("2 PICANHAS STEAK", "€15.50", "Two picanha slices.", "", sideImages.twoPicanhas, false),
+    createCard("1 PICANHA STEAK", "€10", "One picanha slice.", "", sideImages.onePicanha, false),
+    createCard("2 GRILLED BEEF OR MILANESA", "€9.95", "Two grilled or breaded beef.", "G1; D; E", sideImages.twoGrilledBeef, false),
+    createCard("2 GRILLED CHICKEN OR MILANESA", "€9.95", "Two grilled or breaded chicken.", "G1; D; E", sideImages.twoGrilledChicken, false)
+];
+
+const vegetarian = [
+    createCard("FEIJOADA DE TOFU", "€15.95", "Black bean stew with tofu and vegetables. Served with rice, cabbage, vinaigrette and farofa.", "G1; G4; SB", vegImg, false),
+    createCard("PARMEGIANA DE BERINJELA", "€15.95", "Breaded aubergine with tomato sauce and mozzarella. Served with rice and fries or potato salad.", "G1; D; E", vegImg, false),
+    createCard("STROGONOFF DE PALMITO", "€15.95", "Palm heart stroganoff with mushrooms. Served with rice and shoestring potatoes or fries.", "G1; D; MS", vegImg, false)
+];
+
+const chefSpecials = [
+    createCard("PICANHA EXPERIENCE", "€22.50 p/p", "Prime picanha with creamy cheese sauce + 4 unlimited sides. (minimum 2 people)", "G1; D", mainImages.picanhaSimples, false),
+    createCard("PARMEGIANA EXPERIENCE", "€22.50 p/p", "Huge breaded beef with 4-cheese sauce + unlimited sides. (minimum 2 people)", "G1; D; E", mainImages.parmegiana, false)
+];
+
+const kids = [
+    createCard("NUGGETS", "€9.75", "Chicken nuggets served with french fries.", "G1; E; D", kidsImg, false),
+    createCard("SUPER HERO / PRINCESS MEAL", "€9.75", "Grilled chicken or beef fillet with rice, beans and fries or salad.", "G1", kidsImg, false)
+];
+
+const burgers = [
+    createCard("X-BURGER", "€12", "8oz burger with melted cheese & truffled mayo on brioche bun.", "G1; D; E; SS", burgerImg, false),
+    createCard("X-BACON BURGER", "€14.50", "8oz burger with bacon, melted cheese & truffled mayo.", "G1; D; E; SS", burgerImg, false),
+    createCard("X-SALADA BURGER", "€14.50", "8oz burger with lettuce, tomato, cheese & truffled mayo.", "G1; D; E; SS", burgerImg, false),
+    createCard("SMASH BURGER", "€14.50", "Double smash burger with double cheese, onion, pickles & truffle mayo.", "G1; D; E; SS", burgerImg, false),
+    createCard("SALGADOS FRITOS / PÃO DE QUEIJO", "€3.50", "Coxinha, cheese ball, risoles, kibe or cheese bread.", "G1; D", burgerImg, false),
+    createCard("PORÇÃO MINI SALGADOS", "€18.95", "20 mini Brazilian fried snacks.", "G1; D", burgerImg, false),
+    createCard("CHICKEN WINGS AND FRIES", "€12.50", "8 buffalo wings (hot or BBQ) served with fries.", "", burgerImg, false)
+];
+
+const pasteis = [
+    createCard("PASTEL CARNE (Beef)", "€7.95", "Minced beef.", "", pastelImg, false),
+    createCard("CARNE COM QUEIJO", "€8.45", "Beef and cheese.", "", pastelImg, false),
+    createCard("CARNE COM AZEITONA", "€8.45", "Beef and olives.", "", pastelImg, false),
+    createCard("ESPECIAL CARNE", "€8.45", "Beef, egg and olives.", "", pastelImg, false),
+    createCard("BAURU", "€7.95", "Ham, cheese and oregano.", "", pastelImg, false),
+    createCard("BAURU COM REQUEIJÃO", "€8.45", "Ham, cheese, cream cheese and oregano.", "", pastelImg, false),
+    createCard("FRANGO (Chicken)", "€7.95", "Shredded chicken.", "", pastelImg, false),
+    createCard("FRANGO COM QUEIJO", "€8.45", "Chicken and cheese.", "", pastelImg, false),
+    createCard("FRANGO COM REQUEIJÃO", "€8.95", "Chicken and cream cheese.", "", pastelImg, false),
+    createCard("FRANGO COM QUEIJO E AZEITONA", "€8.45", "Chicken, cheese and olives.", "", pastelImg, false),
+    createCard("CALABRESA", "€7.95", "Smoked sausage.", "", pastelImg, false),
+    createCard("CALABRESA COM QUEIJO", "€8.45", "Smoked sausage and cheese.", "", pastelImg, false),
+    createCard("VEGETARIAN QUEIJO", "€7.95", "Cheese.", "", pastelImg, false),
+    createCard("PIZZA", "€7.95", "Cheese, tomato and oregano.", "", pastelImg, false),
+    createCard("PALMITO COM QUEIJO", "€7.95", "Palm heart and cheese.", "", pastelImg, false),
+    createCard("PALMITO COM QUEIJO, MILHO, AZEITONA E TOMATE", "€7.95", "Palm heart, cheese, sweetcorn, olives and tomato.", "", pastelImg, false)
+];
+
+const toppings = [
+    createCard("Sweetcorn / Olives / Onion / Tomato", "€1 each", "Extra topping per item.", "", toppingImg, false),
+    createCard("Cheese / Ham / Bacon / Cream Cheese", "€2 each", "Extra topping per item.", "D", toppingImg, false),
+    createCard("Palmito (Palm heart)", "€3", "Extra topping.", "", toppingImg, false)
+];
+
+const desserts = [
+    createCard("BRIGADEIRO/BEIJINHO", "€3.25", "Brazilian chocolate truffle or coconut truffle.", "", dessertImg, false),
+    createCard("PUDIM", "€4.95", "Creamy Brazilian-style flan with caramel sauce.", "D; E", dessertImg, false),
+    createCard("MOUSSE DE MARACUJÁ", "€4.95", "Creamy tangy passion fruit mousse.", "D; E", dessertImg, false),
+    createCard("BOLO DE POTE", "€6.95", "Layers of cake and creamy filling (check availability).", "G1; D; E; N", dessertImg, false)
+];
+
+const drinks = [
+    createCard("Guaraná 330ml", "€3.75", "Refreshing Brazilian soda.", "", drinkImg, false),
+    createCard("Guaraná Zero 330ml", "€4.50", "Sugar-free Brazilian soda.", "", drinkImg, false),
+    createCard("Coke 330ml", "€3.75", "Coca-Cola classic.", "", drinkImg, false),
+    createCard("Coke Zero 330ml", "€3.75", "Coca-Cola zero sugar.", "", drinkImg, false),
+    createCard("Fanta or 7up 330ml", "€3.75", "Your choice of soda.", "", drinkImg, false),
+    createCard("Sparkling Water", "€2.95", "Sparkling mineral water.", "", drinkImg, false),
+    createCard("Still Water", "€2.75", "Still mineral water.", "", drinkImg, false),
+    createCard("FRESH JUICES", "€5 - €5.50", "Orange, Pineapple, Pineapple & mint, Strawberry, Mix Berry.", "", drinkImg, false),
+    createCard("SMOOTHIE", "€5.95", "Strawberry or Mix Berry.", "", drinkImg, false)
+];
+
+/* ======================== RENDER ======================== */
+function render(containerId, items) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    let html = '';
+    for (const item of items) {
+        const allergenHtml = item.allergen
+            ? `<div class="allergen">⚠️ Allergens: ${item.allergen}</div>`
+            : '';
+        const sideButtonHtml = item.showSideButton
+            ? `<button class="choose-sides-btn" onclick="goToSideMeals()">🍚 Choose Sides</button>`
+            : '';
+
+        const nameHtml = item.isHot
+            ? `<span class="fire-icon">🔥</span> ${item.name} <span class="hot-badge">Best Seller</span>`
+            : item.name;
+
+        html += `
+            <div class="dish-card reveal">
+                <div class="image-container">
+                    <img class="dish-img" src="${item.img}" alt="${item.name}" loading="lazy"
+                         onerror="this.style.background='linear-gradient(135deg, var(--panel-2), var(--panel-3))'; this.style.minHeight='200px';">
+                    <button class="zoom-btn" onclick="openLightbox('${item.img}', '${item.name.replace(/'/g, "\\'")}')" aria-label="Zoom image">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                </div>
+                <div class="dish-info">
+                    <div class="dish-header">
+                        <span class="dish-name">${nameHtml}</span>
+                        ${item.price ? `<span class="dish-price">${item.price}</span>` : ''}
+                    </div>
+                    <div class="dish-desc">${item.desc}</div>
+                    ${allergenHtml}
+                    ${sideButtonHtml}
+                </div>
+            </div>
+        `;
+    }
+    container.innerHTML = html;
+
+    // Contador de itens no título da seção
+    const counter = document.querySelector(`[data-count-for="${containerId.replace('-grid','')}"]`);
+    if (counter) counter.textContent = `${items.length} items`;
+
+    // Observa novos cards para reveal
+    container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+render("maincourse-grid", mains);
+render("sidemeals-grid", sideMeals);
+render("sides-grid", sides);
+render("students-grid", students);
+render("vegetarian-grid", vegetarian);
+render("chefspecial-grid", chefSpecials);
+render("kids-grid", kids);
+render("burgers-grid", burgers);
+render("pasteis-grid", pasteis);
+render("toppings-grid", toppings);
+render("desserts-grid", desserts);
+render("drinks-grid", drinks);
+
+/* ======================== TABS ======================== */
+const tabs = document.querySelectorAll('.tab-btn');
+const sectionsMap = {
+    maincourse: document.getElementById('maincourse'),
+    sidemeals: document.getElementById('sidemeals'),
+    students: document.getElementById('students'),
+    vegetarian: document.getElementById('vegetarian'),
+    chefspecial: document.getElementById('chefspecial'),
+    kids: document.getElementById('kids'),
+    sides: document.getElementById('sides'),
+    burgers: document.getElementById('burgers'),
+    pasteis: document.getElementById('pasteis'),
+    toppings: document.getElementById('toppings'),
+    desserts: document.getElementById('desserts'),
+    drinks: document.getElementById('drinks')
+};
+
+function activateTab(tabId) {
+    Object.values(sectionsMap).forEach(sec => sec?.classList.remove('active-section'));
+    sectionsMap[tabId]?.classList.add('active-section');
+    tabs.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+    });
+
+    // Reveal imediato dos cards da nova seção
+    setTimeout(() => {
+        document.querySelectorAll('.menu-section.active-section .reveal').forEach(el => el.classList.add('visible'));
+    }, 50);
+
+    // Scroll suave até as tabs
+    const tabsContainer = document.querySelector('.tabs-container');
+    if (tabsContainer) {
+        const y = tabsContainer.getBoundingClientRect().top + window.scrollY - 10;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+}
+
+tabs.forEach(btn => {
+    btn.addEventListener('click', e => {
+        e.preventDefault();
+        const tabId = btn.getAttribute('data-tab');
+        if (tabId && sectionsMap[tabId]) activateTab(tabId);
+    });
+});
+
+/* ======================== HEADER SCROLL ======================== */
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* ======================== MENU MOBILE ======================== */
+const menuToggle = document.getElementById('menuToggle');
+const navList = document.getElementById('navList');
+const toggleIcon = menuToggle.querySelector('i');
+
+menuToggle.addEventListener('click', () => {
+    const open = navList.classList.toggle('open');
+    toggleIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+
+navList.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        navList.classList.remove('open');
+        toggleIcon.className = 'fas fa-bars';
+    });
+});
+
+/* ======================== SCROLL REVEAL ======================== */
+const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ======================== INICIALIZA ======================== */
+activateTab('maincourse');
+</script>
+</body>
+</html>
