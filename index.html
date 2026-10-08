@@ -290,11 +290,29 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     padding: 0 40px 100px;
 }
 
+/* Intro que colapsa quando tabs colam no topo */
 .menu-intro {
     text-align: center;
     margin-bottom: 36px;
     padding-top: 20px;
+    max-height: 320px;
+    overflow: hidden;
+    opacity: 1;
+    transition:
+        max-height 0.55s var(--ease),
+        opacity 0.35s var(--ease),
+        margin-bottom 0.45s var(--ease),
+        padding-top 0.45s var(--ease);
 }
+
+body.tabs-stuck .menu-intro {
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    pointer-events: none;
+}
+
 .menu-intro .eyebrow {
     display: inline-block;
     color: var(--ember);
@@ -343,6 +361,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     margin: 0 -40px 36px;
     border-bottom: 1px solid var(--line-soft);
     border-top: 1px solid var(--line-soft);
+    transition: margin-bottom 0.45s var(--ease);
+}
+body.tabs-stuck .tabs-container {
+    margin-bottom: 0;
 }
 .tabs-wrapper {
     display: flex;
@@ -978,6 +1000,7 @@ footer {
 
     .menu-wrapper { padding: 0 20px 70px; }
     .tabs-container { margin: 0 -20px 28px; top: 0; padding: 12px 0; }
+    body.tabs-stuck .tabs-container { margin-bottom: 20px; }
     .tabs-wrapper { padding: 0 20px; }
 
     /* No mobile, mostra uma barrinha bem fina de scroll */
@@ -1286,7 +1309,7 @@ const hotItems = [
     "PARMEGIANA",
     "BIFE/FRANGO COM CREME DE MILHO",
     "MILANESA (CARNE/FRANGO)",
-    "PF BIFE/FRANCO ACEBOLADO"
+    "PF BIFE/FRANGO ACEBOLADO"
 ];
 
 /* ======================== MODALS ======================== */
@@ -1568,6 +1591,40 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ======================== STICKY TABS: HIDE INTRO ======================== */
+const tabsContainer = document.querySelector('.tabs-container');
+let tabsTriggerPoint = 0;
+
+function computeTabsTrigger() {
+    if (tabsContainer) {
+        tabsTriggerPoint = tabsContainer.offsetTop;
+    }
+}
+
+function onScrollTabs() {
+    if (!tabsContainer) return;
+    if (window.scrollY >= tabsTriggerPoint - 2) {
+        document.body.classList.add('tabs-stuck');
+    } else {
+        document.body.classList.remove('tabs-stuck');
+    }
+}
+
+if (tabsContainer) {
+    computeTabsTrigger();
+    window.addEventListener('scroll', onScrollTabs, { passive: true });
+    window.addEventListener('resize', () => {
+        computeTabsTrigger();
+        onScrollTabs();
+    });
+    // Recalcula depois que tudo carregar (imagens, fontes, etc.)
+    window.addEventListener('load', () => {
+        computeTabsTrigger();
+        onScrollTabs();
+    });
+    onScrollTabs();
+}
 
 /* ======================== INIT ======================== */
 activateTab('maincourse');
