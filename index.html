@@ -70,113 +70,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ember); }
 
-/* ============ HEADER ============ */
-header {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 40px;
-    z-index: 1000;
-    transition: var(--transition);
-}
-header.scrolled {
-    padding: 12px 40px;
-    background: rgba(13,9,6,0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--line-soft);
-}
-
-.logo {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--cream);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: var(--transition);
-}
-.logo:hover { transform: translateY(-1px); }
-.logo .flame {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px; height: 32px;
-    border-radius: 9px;
-    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
-    color: var(--char);
-    font-size: 0.95rem;
-    box-shadow: 0 4px 14px rgba(226,118,42,0.35);
-}
-.logo em { color: var(--gold); font-style: italic; }
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 32px;
-    align-items: center;
-}
-nav a {
-    color: var(--cream);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    position: relative;
-    padding: 6px 0;
-    transition: var(--transition);
-}
-nav a:not(.btn-order)::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0; height: 1px;
-    background: var(--ember);
-    transition: width 0.4s var(--ease);
-}
-nav a:not(.btn-order):hover { color: var(--gold); }
-nav a:not(.btn-order):hover::after { width: 100%; }
-
-.btn-order {
-    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
-    color: var(--char) !important;
-    padding: 9px 20px;
-    border-radius: 30px;
-    font-size: 0.75rem !important;
-    font-weight: 600 !important;
-    box-shadow: 0 4px 18px rgba(226,118,42,0.35);
-    transition: var(--transition);
-}
-.btn-order:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(226,118,42,0.5);
-    filter: brightness(1.08);
-}
-
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--cream);
-    font-size: 1.4rem;
-    cursor: pointer;
-    z-index: 1100;
-}
-
-/* ============ HERO (compacto) ============ */
+/* ============ HERO ============ */
 .hero {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 110px 30px 40px;
+    padding: 50px 30px 40px;
     overflow: hidden;
 }
 
@@ -433,7 +334,7 @@ nav a:not(.btn-order):hover::after { width: 100%; }
 /* ============ TABS ============ */
 .tabs-container {
     position: sticky;
-    top: 62px;
+    top: 0;
     z-index: 100;
     background: rgba(13,9,6,0.92);
     backdrop-filter: blur(18px);
@@ -451,10 +352,10 @@ nav a:not(.btn-order):hover::after { width: 100%; }
     overflow-y: hidden;
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;      /* Firefox */
-    -ms-overflow-style: none;   /* IE/Edge antigos */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
-.tabs-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari/Edge */
+.tabs-wrapper::-webkit-scrollbar { display: none; }
 
 .tab-btn {
     background: transparent;
@@ -700,12 +601,12 @@ nav a:not(.btn-order):hover::after { width: 100%; }
     box-shadow: 0 4px 16px rgba(226,118,42,0.35);
 }
 
-/* ============ ABOUT CTA ============ */
+/* ============ CTA (Delivery + About) ============ */
 .menu-footer-cta {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
     margin-top: 60px;
     padding-top: 46px;
     border-top: 1px solid var(--line-soft);
@@ -727,8 +628,10 @@ nav a:not(.btn-order):hover::after { width: 100%; }
     text-transform: uppercase;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 9px;
     touch-action: manipulation;
+    min-width: 260px;
 }
 .cta-btn:hover {
     background: linear-gradient(135deg, var(--ember), var(--ember-deep));
@@ -762,7 +665,31 @@ footer {
     gap: 46px;
     margin-bottom: 44px;
 }
-.footer-brand .logo { margin-bottom: 18px; }
+.footer-brand .logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--cream);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    transition: var(--transition);
+}
+.footer-brand .logo .flame {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+    color: var(--char);
+    font-size: 0.95rem;
+    box-shadow: 0 4px 14px rgba(226,118,42,0.35);
+}
+.footer-brand .logo em { color: var(--gold); font-style: italic; }
 .footer-brand p {
     color: var(--muted);
     font-size: 0.85rem;
@@ -1042,30 +969,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    header { padding: 14px 20px; }
-    header.scrolled { padding: 10px 20px; }
-
-    .menu-toggle { display: block; }
-
-    nav ul {
-        position: fixed;
-        top: 0; right: -100%;
-        width: 78%;
-        max-width: 320px;
-        height: 100vh;
-        background: rgba(20,16,11,0.98);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        justify-content: center;
-        gap: 26px;
-        padding: 40px;
-        transition: right 0.5s var(--ease);
-        border-left: 1px solid var(--line);
-    }
-    nav ul.open { right: 0; }
-    nav a { font-size: 1rem; }
-
-    .hero { padding: 90px 20px 30px; }
+    .hero { padding: 40px 20px 30px; }
     .hero-logo-wrap { width: 140px; }
     .hero-actions { flex-direction: column; align-items: center; }
     .btn-primary, .btn-ghost { width: 100%; max-width: 280px; justify-content: center; }
@@ -1073,7 +977,7 @@ footer {
     .hero-meta-item { font-size: 0.72rem; }
 
     .menu-wrapper { padding: 0 20px 70px; }
-    .tabs-container { margin: 0 -20px 28px; top: 56px; padding: 12px 0; }
+    .tabs-container { margin: 0 -20px 28px; top: 0; padding: 12px 0; }
     .tabs-wrapper { padding: 0 20px; }
 
     /* No mobile, mostra uma barrinha bem fina de scroll */
@@ -1088,6 +992,8 @@ footer {
     }
 
     .cards-grid { grid-template-columns: 1fr; gap: 20px; }
+
+    .cta-btn { min-width: 100%; max-width: 300px; }
 
     .about-content { padding: 38px 22px; margin: 20px auto; border-radius: 22px; }
     .about-title { font-size: 1.8rem; }
@@ -1123,32 +1029,6 @@ footer {
 </style>
 </head>
 <body>
-
-<!-- HEADER -->
-<header id="header">
-    <a href="#" class="logo">
-        <span class="flame">🔥</span>
-        FABI'S <em>GRILL</em>
-    </a>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <nav aria-label="Main navigation">
-        <ul id="navList">
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#" onclick="openAboutModal(); return false;">About</a></li>
-            <li><a href="#contact">Visit</a></li>
-            <li>
-                <a href="https://deliveroo.ie/menu/Dublin/city-hall/fabis-grill-temple-bar?day=today&geohash=gc7x2yq7c5xq&time=ASAP"
-                   target="_blank" rel="noopener noreferrer" class="btn-order">
-                   Order Delivery
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
 
 <!-- HERO -->
 <section class="hero">
@@ -1226,13 +1106,13 @@ footer {
     <div id="drinks" class="menu-section"><h2 class="section-title">🥤 Drinks <span class="count" data-count-for="drinks"></span></h2><div class="cards-grid" id="drinks-grid"></div></div>
 
     <div class="menu-footer-cta reveal">
-        <button class="cta-btn" onclick="openAboutModal()">
-            <i class="fas fa-book-open"></i> About Us
-        </button>
         <a href="https://deliveroo.ie/menu/Dublin/city-hall/fabis-grill-temple-bar?day=today&geohash=gc7x2yq7c5xq&time=ASAP"
            target="_blank" rel="noopener noreferrer" class="cta-btn deliveroo">
            <i class="fas fa-motorcycle"></i> Order Delivery
         </a>
+        <button class="cta-btn" onclick="openAboutModal()">
+            <i class="fas fa-book-open"></i> About Us
+        </button>
     </div>
 </div>
 
@@ -1406,7 +1286,7 @@ const hotItems = [
     "PARMEGIANA",
     "BIFE/FRANGO COM CREME DE MILHO",
     "MILANESA (CARNE/FRANGO)",
-    "PF BIFE/FRANGO ACEBOLADO"
+    "PF BIFE/FRANCO ACEBOLADO"
 ];
 
 /* ======================== MODALS ======================== */
@@ -1674,29 +1554,6 @@ tabs.forEach(btn => {
         e.preventDefault();
         const tabId = btn.getAttribute('data-tab');
         if (tabId && sectionsMap[tabId]) activateTab(tabId);
-    });
-});
-
-/* ======================== HEADER SCROLL ======================== */
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
-
-/* ======================== MOBILE MENU ======================== */
-const menuToggle = document.getElementById('menuToggle');
-const navList = document.getElementById('navList');
-const toggleIcon = menuToggle.querySelector('i');
-
-menuToggle.addEventListener('click', () => {
-    const open = navList.classList.toggle('open');
-    toggleIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
-});
-
-navList.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        navList.classList.remove('open');
-        toggleIcon.className = 'fas fa-bars';
     });
 });
 
