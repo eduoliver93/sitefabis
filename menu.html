@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* [MANTENHA TODO O CSS ORIGINAL AQUI] */
 :root {
     --char: #0d0906; --char-2: #14100b; --panel: #1d1610; --panel-2: #261c14;
     --line: #3d2c1d; --line-soft: rgba(217,168,96,0.12); --ember: #e2762a;
@@ -22,18 +21,22 @@
     --font-display: 'Fraunces', Georgia, serif; --font-body: 'Work Sans', -apple-system, sans-serif;
     --ease: cubic-bezier(0.16, 1, 0.3, 1); --transition: all 0.4s var(--ease);
 }
+
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
+
 body {
     background: var(--char);
     background-image: radial-gradient(ellipse 1000px 600px at 50% -5%, rgba(226,118,42,0.14), transparent 60%), radial-gradient(ellipse 800px 500px at 90% 100%, rgba(217,168,96,0.06), transparent 60%);
     font-family: var(--font-body); color: var(--cream); overflow-x: hidden; line-height: 1.55;
     -webkit-font-smoothing: antialiased; touch-action: pan-x pan-y; display: flex; flex-direction: column; min-height: 100vh;
 }
+
 body::before {
     content: ''; position: fixed; inset: 0; pointer-events: none; opacity: 0.03; z-index: 9999;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
 h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; }
 ::selection { background: var(--ember); color: var(--char); }
 ::-webkit-scrollbar { width: 10px; height: 4px; }
@@ -41,7 +44,22 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ember); }
 
-/* BOTÃO MENU */
+/* ============ CONTROLE DE TELAS ============ */
+#main-page { transition: opacity 0.4s ease, transform 0.4s ease; }
+#main-page.hidden { display: none; opacity: 0; transform: translateY(-20px); }
+
+#full-menu-page {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+#full-menu-page.active { display: flex; opacity: 1; transform: translateY(0); }
+
+/* ============ BOTÃO MENU FLUTUANTE ============ */
 .menu-toggle-btn {
     position: fixed; top: 24px; right: 24px; width: 56px; height: 56px;
     background: linear-gradient(135deg, var(--ember), var(--ember-deep));
@@ -52,7 +70,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 .menu-toggle-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(226,118,42,0.6); filter: brightness(1.08); }
 .menu-toggle-btn span { display: block; width: 22px; height: 2px; background-color: var(--cream); border-radius: 2px; }
 
-/* SIDEBAR, HERO E EFEITOS */
+/* ============ SIDEBAR ============ */
 .sidebar-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 1001; opacity: 0; visibility: hidden; transition: var(--transition); }
 .sidebar-overlay.active { opacity: 1; visibility: visible; }
 .sidebar-menu { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100dvh; background: var(--char); z-index: 1002; display: flex; flex-direction: column; transition: right 0.4s var(--ease); border-left: 1px solid var(--line); box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
@@ -72,6 +90,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 .sidebar-socials a { color: var(--cream); font-size: 1.1rem; transition: color 0.3s; }
 .sidebar-socials a:hover { color: var(--ember); }
 
+/* ============ HERO ============ */
 .hero { position: relative; display: flex; align-items: center; justify-content: center; text-align: center; padding: 50px 30px 40px; flex: 1; min-height: 100vh; overflow: hidden; }
 .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 800px 400px at 50% 35%, rgba(226,118,42,0.15), transparent 65%), linear-gradient(180deg, transparent 0%, var(--char) 100%); z-index: 1; }
 .hero-embers { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -103,7 +122,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* MENU */
+/* ============ SEÇÃO DE PRATOS ============ */
 .menu-section-wrapper { max-width: 1300px; margin: 0 auto; padding: 80px 40px; width: 100%; }
 .menu-section-title { text-align: center; margin-bottom: 50px; }
 .menu-section-title .eyebrow { display: inline-block; color: var(--ember); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px; position: relative; padding: 0 30px; }
@@ -111,6 +130,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 .menu-section-title .eyebrow::before { left: 0; } .menu-section-title .eyebrow::after { right: 0; }
 .menu-section-title h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 500; margin-bottom: 12px; }
 .menu-section-title h2 em { color: var(--gold-bright); font-style: italic; }
+
 .dishes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 30px; }
 .dish-card { background: var(--panel); border-radius: 20px; overflow: hidden; border: 1px solid var(--line); transition: var(--transition); display: flex; flex-direction: column; }
 .dish-card:hover { transform: translateY(-6px); border-color: rgba(226,118,42,0.35); box-shadow: 0 20px 40px rgba(0,0,0,0.5); background: var(--panel-2); }
@@ -121,7 +141,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 .dish-name { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--cream); margin-bottom: 8px; }
 .dish-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; flex: 1; font-weight: 300; }
 
-/* BOTÃO VER MAIS (Agora é um link estilizado) */
 .see-more-container { text-align: center; margin-top: 20px; }
 .btn-see-more {
     background: transparent; color: var(--gold-bright); border: 1px solid rgba(217,168,96,0.4);
@@ -131,14 +150,31 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 }
 .btn-see-more:hover { background: rgba(226,118,42,0.1); border-color: var(--ember); color: var(--cream); }
 
-/* LIGHTBOX */
+/* ============ NOVA TELA (FULL MENU) ============ */
+.full-menu-header {
+    position: relative; padding: 60px 20px 40px; text-align: center;
+    border-bottom: 1px solid var(--line-soft); background: var(--char-2);
+}
+.full-menu-header h1 { font-size: 2.5rem; color: var(--cream); margin-bottom: 10px; margin-top: 20px;}
+.full-menu-header p { color: var(--muted); font-size: 0.9rem; }
+
+.btn-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--gold-bright); text-decoration: none; font-weight: 600; font-size: 0.85rem;
+    background: rgba(217,168,96,0.1); border: 1px solid rgba(217,168,96,0.3);
+    padding: 10px 20px; border-radius: 30px; transition: var(--transition);
+    cursor: pointer; border: 1px solid rgba(217,168,96,0.3); font-family: var(--font-body);
+}
+.btn-back:hover { background: var(--ember); color: var(--char); border-color: var(--ember); }
+
+/* ============ LIGHTBOX ============ */
 .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; padding: 20px; }
 .lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
 .lightbox-img { max-width: 90%; max-height: 80vh; object-fit: contain; border-radius: 16px; box-shadow: 0 30px 80px rgba(0,0,0,0.7); }
 .close-lightbox { position: absolute; top: 22px; right: 22px; width: 44px; height: 44px; font-size: 1.2rem; color: var(--cream); cursor: pointer; background: rgba(226,118,42,0.15); border: 1px solid var(--ember); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
 .close-lightbox:hover { background: var(--ember); color: var(--char); transform: rotate(90deg); }
 
-/* FOOTER */
+/* ============ RODAPÉ ============ */
 footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var(--line-soft); position: relative; z-index: 10; }
 .footer-grid { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
 .footer-col h4 { font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--ember); margin-bottom: 20px; font-weight: 600; }
@@ -157,7 +193,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
 .developer-credit { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; color: var(--muted); }
 .developer-credit strong { color: var(--gold); font-weight: 600; }
 
-/* MODAIS */
+/* ============ MODAIS ============ */
 .delivery-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
 .delivery-modal.active { display: flex; opacity: 1; }
 .delivery-box { background: linear-gradient(180deg, var(--panel) 0%, var(--char-2) 100%); border-radius: 24px; padding: 40px 32px; max-width: 420px; width: 100%; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,0.8); text-align: center; transform: translateY(20px); transition: transform 0.4s var(--ease); }
@@ -184,6 +220,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
     .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 36px; } .footer-brand p { margin: 0 auto 20px; }
     .social-links { justify-content: center; } .footer-contact li { justify-content: center; text-align: left; }
     .footer-bottom { flex-direction: column; text-align: center; } .delivery-box { padding: 32px 24px; }
+    .full-menu-header h1 { font-size: 2rem; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; } .hero-embers { display: none; } }
 :focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; border-radius: 4px; }
@@ -200,13 +237,15 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <nav class="sidebar-menu" id="sidebarMenu">
     <div class="sidebar-header">
-        <a href="index.html" style="text-decoration: none;"><img src="logo-fabis.png" alt="Fabi's Grill"></a>
+        <a href="#" onclick="showMainPage(); closeSidebar(); return false;" style="text-decoration: none;">
+            <img src="logo-fabis.png" alt="Fabi's Grill">
+        </a>
         <button class="close-sidebar" id="closeMenu" aria-label="Close menu">&times;</button>
     </div>
     <ul class="sidebar-links">
         <li><a href="#" onclick="openBookingModal(); closeSidebar();"><i class="far fa-calendar-alt"></i> Book a Table</a></li>
         <li><a href="#" onclick="openDeliveryModal(); closeSidebar();"><i class="fas fa-motorcycle"></i> Order Delivery</a></li>
-        <li><a href="menu.html"><i class="fas fa-utensils"></i> Our Menu</a></li>
+        <li><a href="#" onclick="showFullMenu(); closeSidebar(); return false;"><i class="fas fa-utensils"></i> Our Menu</a></li>
         <li><a href="#"><i class="fas fa-info-circle"></i> About Us</a></li>
         <li><a href="#contact" onclick="closeSidebar();"><i class="fas fa-map-marker-alt"></i> Find Us</a></li>
     </ul>
@@ -220,57 +259,104 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
     </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="hero-embers" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="hero-content">
-        <div class="hero-logo-wrap"><img class="hero-logo" src="logo-fabis.png" alt="Fabi's Grill logo" width="340" height="340" fetchpriority="high"></div>
-        <div class="hero-badge"><span class="dot"></span> Brazilian Cousine · Temple Bar</div>
-        <h1>Fire. Flavor. <em>Soul.</em></h1>
-        <p class="hero-sub">Authentic Brazilian cousine in the heart of Dublin</p>
-        <div class="hero-meta">
-            <span class="hero-meta-item"><i class="fas fa-clock"></i> Open daily · 11:30am–8pm</span>
-            <span class="hero-meta-item"><i class="fas fa-fire"></i> Premium cuts</span>
-            <span class="hero-meta-item"><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</span>
+<!-- ============ TELA PRINCIPAL ============ -->
+<div id="main-page">
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-embers" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
-        <div class="hero-actions">
-            <a href="#menu" class="btn-primary">Explore Menu <i class="fas fa-arrow-right"></i></a>
-            <button class="btn-ghost" onclick="openDeliveryModal()"><i class="fas fa-motorcycle"></i> Delivery</button>
+        <div class="hero-content">
+            <div class="hero-logo-wrap"><img class="hero-logo" src="logo-fabis.png" alt="Fabi's Grill logo" width="340" height="340" fetchpriority="high"></div>
+            <div class="hero-badge"><span class="dot"></span> Brazilian Cousine · Temple Bar</div>
+            <h1>Fire. Flavor. <em>Soul.</em></h1>
+            <p class="hero-sub">Authentic Brazilian cousine in the heart of Dublin</p>
+            <div class="hero-meta">
+                <span class="hero-meta-item"><i class="fas fa-clock"></i> Open daily · 11:30am–8pm</span>
+                <span class="hero-meta-item"><i class="fas fa-fire"></i> Premium cuts</span>
+                <span class="hero-meta-item"><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</span>
+            </div>
+            <div class="hero-actions">
+                <a href="#menu" class="btn-primary">Explore Menu <i class="fas fa-arrow-right"></i></a>
+                <button class="btn-ghost" onclick="openDeliveryModal()"><i class="fas fa-motorcycle"></i> Delivery</button>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ============ SEÇÃO EXPLORAR MENU (3 PRATOS) ============ -->
-<section class="menu-section-wrapper" id="menu">
-    <div class="menu-section-title">
-        <span class="eyebrow">Our Menu</span>
-        <h2>Signature <em>Dishes</em></h2>
-    </div>
+    <!-- SEÇÃO 3 PRATOS -->
+    <section class="menu-section-wrapper" id="menu">
+        <div class="menu-section-title">
+            <span class="eyebrow">Our Menu</span>
+            <h2>Signature <em>Dishes</em></h2>
+        </div>
+        <div class="dishes-grid">
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-feijoada.jpg" alt="Feijoada Tradicional" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Feijoada Tradicional</h3><p class="dish-desc">Traditional black bean stew with meats. Served with rice, farofa, vinaigrette, cabbage, pork belly & orange.</p></div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-picanha-casa.jpg" alt="Picanha da Casa" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Picanha da Casa</h3><p class="dish-desc">2 succulent prime picanha steaks. Served with 5 sides of your choice.</p></div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-tilapia.jpg" alt="Tilapia" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Tilapia</h3><p class="dish-desc">2 breaded tilapia fillets with rice, beans, fries and salad.</p></div>
+            </div>
+        </div>
+        <!-- O BOTÃO QUE CHAMA A NOVA TELA -->
+        <div class="see-more-container">
+            <button class="btn-see-more" onclick="showFullMenu()">
+                See more options <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+</div>
 
-    <div class="dishes-grid">
-        <div class="dish-card">
-            <div class="dish-image-container"><img src="main-feijoada.jpg" alt="Feijoada Tradicional" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
-            <div class="dish-info"><h3 class="dish-name">Feijoada Tradicional</h3><p class="dish-desc">Traditional black bean stew with meats. Served with rice, farofa, vinaigrette, cabbage, pork belly & orange.</p></div>
+<!-- ============ NOVA TELA: FULL MENU (Escondida por padrão) ============ -->
+<div id="full-menu-page">
+    <header class="full-menu-header">
+        <div style="max-width: 1300px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+            <button class="btn-back" onclick="showMainPage()" style="margin-bottom: 20px;">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <img src="logo-fabis.png" alt="Fabi's Grill" style="max-height: 60px; margin-bottom: 20px;">
+            <h1>Full Menu</h1>
+            <p>Explore our complete selection of Brazilian dishes</p>
         </div>
-        <div class="dish-card">
-            <div class="dish-image-container"><img src="main-picanha-casa.jpg" alt="Picanha da Casa" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
-            <div class="dish-info"><h3 class="dish-name">Picanha da Casa</h3><p class="dish-desc">2 succulent prime picanha steaks. Served with 5 sides of your choice.</p></div>
+    </header>
+    
+    <main class="menu-section-wrapper">
+        <div class="dishes-grid">
+            <!-- Pratos Principais -->
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-feijoada.jpg" alt="Feijoada Tradicional" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Feijoada Tradicional</h3><p class="dish-desc">Traditional black bean stew with meats. Served with rice, farofa, vinaigrette, cabbage, pork belly & orange.</p></div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-picanha-casa.jpg" alt="Picanha da Casa" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Picanha da Casa</h3><p class="dish-desc">2 succulent prime picanha steaks. Served with 5 sides of your choice.</p></div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-tilapia.jpg" alt="Tilapia" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Tilapia</h3><p class="dish-desc">2 breaded tilapia fillets with rice, beans, fries and salad.</p></div>
+            </div>
+            
+            <!-- Pratos Extras -->
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-churrasco-dois.jpg" alt="Churrasco para Dois" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Churrasco para Dois</h3><p class="dish-desc">Mix of picanha, Toscana sausage & grilled chicken. Served with 4 sides of your choice.</p></div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-parmegiana.jpg" alt="Parmegiana" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Parmegiana</h3><p class="dish-desc">Breaded beef or chicken with tomato sauce & mozzarella. Served with rice and potato salad.</p></div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-image-container"><img src="main-strogonoff.jpg" alt="Strogonoff" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
+                <div class="dish-info"><h3 class="dish-name">Strogonoff (Carne/Frango)</h3><p class="dish-desc">Beef or chicken stroganoff in creamy sauce. Served with rice and shoestring potatoes or fries.</p></div>
+            </div>
         </div>
-        <div class="dish-card">
-            <div class="dish-image-container"><img src="main-tilapia.jpg" alt="Tilapia" onclick="openLightbox(this.src)" onerror="this.src='logo-fabis.png'"></div>
-            <div class="dish-info"><h3 class="dish-name">Tilapia</h3><p class="dish-desc">2 breaded tilapia fillets with rice, beans, fries and salad.</p></div>
-        </div>
-    </div>
-
-    <!-- BOTÃO QUE LEVA PARA A OUTRA PÁGINA -->
-    <div class="see-more-container">
-        <a href="menu.html" class="btn-see-more">
-            See more options <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
-</section>
+    </main>
+</div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
@@ -282,7 +368,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
 <footer id="contact">
     <div class="footer-grid">
         <div class="footer-brand">
-            <a href="index.html" class="logo"><img src="logo-fabis.png" alt="Fabi's Grill"></a>
+            <a href="#" onclick="showMainPage(); return false;" class="logo"><img src="logo-fabis.png" alt="Fabi's Grill"></a>
             <p>Authentic Brazilian cousine in the heart of Temple Bar. Fire, flavour and soul in every dish since 2019.</p>
             <div class="social-links">
                 <a href="https://www.instagram.com/fabisgrilltemplebar" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
@@ -293,7 +379,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
         <div class="footer-col">
             <h4>Quick Links</h4>
             <ul class="footer-links">
-                <li><a href="menu.html">Our Menu</a></li>
+                <li><a href="#" onclick="showFullMenu(); return false;">Our Menu</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#" onclick="openBookingModal(); return false;">Reservations</a></li>
                 <li><a href="#">Privacy Policy</a></li>
@@ -345,6 +431,23 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
 </div>
 
 <script>
+    /* === CONTROLE DE TELAS (SPA) === */
+    const mainPage = document.getElementById('main-page');
+    const fullMenuPage = document.getElementById('full-menu-page');
+
+    function showFullMenu() {
+        mainPage.classList.add('hidden');
+        fullMenuPage.classList.add('active');
+        window.scrollTo(0, 0); // Sobe para o topo da nova tela
+    }
+
+    function showMainPage() {
+        fullMenuPage.classList.remove('active');
+        mainPage.classList.remove('hidden');
+        window.scrollTo(0, 0);
+    }
+
+    /* === SIDEBAR === */
     const sidebarMenu = document.getElementById('sidebarMenu');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
     const openMenuBtn = document.getElementById('openMenu');
@@ -355,11 +458,13 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
     closeMenuBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
 
+    /* === LIGHTBOX === */
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     function openLightbox(src) { lightboxImg.src = src; lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; }
     function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
 
+    /* === MODAIS === */
     function openDeliveryModal() { document.getElementById('deliveryModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
     function closeDeliveryModal() { document.getElementById('deliveryModal').classList.remove('active'); document.body.style.overflow = ''; }
     function closeDeliveryModalOnClick(event) { if (event.target === document.getElementById('deliveryModal')) closeDeliveryModal(); }
@@ -370,5 +475,6 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
 
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeDeliveryModal(); closeBookingModal(); closeSidebar(); closeLightbox(); } });
 </script>
+
 </body>
 </html>
