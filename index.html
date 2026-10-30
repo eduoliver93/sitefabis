@@ -283,6 +283,92 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+/* ============ NOVA SEÇÃO: GALERIA ============ */
+.gallery-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 40px 60px;
+}
+
+/* Grid estilo Masonry para as fotos */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 220px;
+    gap: 16px;
+}
+
+/* Faz a primeira foto ocupar 2 colunas e 2 linhas no desktop */
+.gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.gallery-item:nth-child(4) { grid-column: span 2; grid-row: span 1; }
+
+.gallery-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    background: var(--panel-2);
+    transition: var(--transition);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease);
+    display: block;
+}
+
+.gallery-item:hover {
+    border-color: var(--ember);
+    box-shadow: 0 10px 30px rgba(226,118,42,0.2);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,9,6,0.9) 0%, transparent 60%);
+    opacity: 0;
+    transition: var(--transition);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    pointer-events: none;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay span {
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transform: translateY(10px);
+    transition: var(--transition);
+}
+
+.gallery-item:hover .gallery-overlay span {
+    transform: translateY(0);
+}
+
+@media (max-width: 992px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .gallery-item:nth-child(4) { grid-column: span 1; }
+}
+@media (max-width: 576px) {
+    .gallery-section { padding: 10px 20px 40px; }
+    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+    .gallery-item:nth-child(1) { grid-column: span 1; }
+}
+
 /* ============ MENU SECTION ============ */
 .menu-wrapper {
     max-width: 1400px;
@@ -290,7 +376,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     padding: 0 40px 100px;
 }
 
-/* Intro que colapsa quando tabs colam no topo */
 .menu-intro {
     text-align: center;
     margin-bottom: 36px;
@@ -298,13 +383,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     max-height: 320px;
     overflow: hidden;
     opacity: 1;
-    transition:
-        max-height 0.55s var(--ease),
-        opacity 0.35s var(--ease),
-        margin-bottom 0.45s var(--ease),
-        padding-top 0.45s var(--ease);
+    transition: max-height 0.55s var(--ease), opacity 0.35s var(--ease), margin-bottom 0.45s var(--ease), padding-top 0.45s var(--ease);
 }
-
 body.tabs-stuck .menu-intro {
     max-height: 0;
     opacity: 0;
@@ -1003,7 +1083,6 @@ footer {
     body.tabs-stuck .tabs-container { margin-bottom: 20px; }
     .tabs-wrapper { padding: 0 20px; }
 
-    /* No mobile, mostra uma barrinha bem fina de scroll */
     .tabs-wrapper::-webkit-scrollbar {
         display: block;
         height: 3px;
@@ -1086,6 +1165,43 @@ footer {
                target="_blank" rel="noopener noreferrer" class="btn-ghost">
                <i class="fas fa-motorcycle"></i> Delivery
             </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ NOVA GALERIA DE FOTOS ============ -->
+<section class="gallery-section reveal">
+    <div class="gallery-grid">
+        <!-- Para trocar as fotos, altere o "src" e o texto do "span" -->
+        <!-- As 4 primeiras fotos formam o bloco principal -->
+        <div class="gallery-item" onclick="openLightbox('images/main-picanha-casa.jpg', 'Picanha da Casa')">
+            <img src="images/main-picanha-casa.jpg" alt="Picanha da Casa" loading="lazy" onerror="this.src='logo-fabis.png'">
+            <div class="gallery-overlay"><span>Picanha da Casa</span></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('images/main-feijoada.jpg', 'Feijoada Tradicional')">
+            <img src="images/main-feijoada.jpg" alt="Feijoada Tradicional" loading="lazy" onerror="this.src='logo-fabis.png'">
+            <div class="gallery-overlay"><span>Feijoada Tradicional</span></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('images/main-churrasco-dois.jpg', 'Churrasco para Dois')">
+            <img src="images/main-churrasco-dois.jpg" alt="Churrasco para Dois" loading="lazy" onerror="this.src='logo-fabis.png'">
+            <div class="gallery-overlay"><span>Churrasco para Dois</span></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('images/main-parmegiana.jpg', 'Parmegiana')">
+            <img src="images/main-parmegiana.jpg" alt="Parmegiana" loading="lazy" onerror="this.src='logo-fabis.png'">
+            <div class="gallery-overlay"><span>Parmegiana</span></div>
+        </div>
+        <!-- Fotos adicionais -->
+        <div class="gallery-item" onclick="openLightbox('images/main-strogonoff.jpg', 'Strogonoff')">
+            <img src="images/main-strogonoff.jpg" alt="Strogonoff" loading="lazy" onerror="this.src='logo-fabis.png'">
+            <div class="gallery-overlay"><span>Strogonoff</span></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('images/burger-placeholder.jpg', 'Smash Burger')">
+            <img src="images/burger-placeholder.jpg" alt="Smash Burger" loading="lazy" onerror="this.src='logo-fabis.png'">
+            <div class="gallery-overlay"><span>Smash Burger</span></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('images/pastel-placeholder.jpg', 'Pastéis Brasileiros')">
+            <img src="images/pastel-placeholder.jpg" alt="Pastéis Brasileiros" loading="lazy" onerror="this.src='logo-fabis.png'">
+            <div class="gallery-overlay"><span>Pastéis</span></div>
         </div>
     </div>
 </section>
