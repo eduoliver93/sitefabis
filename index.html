@@ -49,7 +49,7 @@ body {
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     touch-action: pan-x pan-y;
-    min-height: 100vh; /* Garante que o fundo cubra a tela toda */
+    min-height: 100vh;
 }
 
 body::before {
@@ -79,7 +79,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     justify-content: center;
     text-align: center;
     padding: 50px 30px 40px;
-    min-height: 100vh; /* Faz o Hero ocupar a tela inteira */
+    min-height: 100vh;
     overflow: hidden;
 }
 
@@ -93,6 +93,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     z-index: 1;
 }
 
+/* ============ EFEITO DE FOGO PREMIUM ============ */
 .hero-embers {
     position: absolute;
     inset: 0;
@@ -100,29 +101,54 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     overflow: hidden;
     pointer-events: none;
 }
+
 .hero-embers span {
     position: absolute;
-    bottom: -10px;
-    width: 3px; height: 3px;
-    background: var(--ember);
+    bottom: -20px;
     border-radius: 50%;
-    box-shadow: 0 0 8px var(--ember), 0 0 16px rgba(226,118,42,0.5);
-    animation: rise linear infinite;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--gold-bright) 40%, var(--ember) 80%);
+    box-shadow: 
+        0 0 6px #fff,
+        0 0 12px var(--gold-bright),
+        0 0 24px var(--ember),
+        0 0 50px rgba(226,118,42,0.4);
+    animation: riseFire linear infinite;
     opacity: 0;
 }
-.hero-embers span:nth-child(1) { left: 12%; animation-duration: 9s; animation-delay: 0s; }
-.hero-embers span:nth-child(2) { left: 28%; animation-duration: 11s; animation-delay: 1.5s; }
-.hero-embers span:nth-child(3) { left: 46%; animation-duration: 8s; animation-delay: 3s; }
-.hero-embers span:nth-child(4) { left: 63%; animation-duration: 12s; animation-delay: 0.8s; }
-.hero-embers span:nth-child(5) { left: 79%; animation-duration: 10s; animation-delay: 2.2s; }
-.hero-embers span:nth-child(6) { left: 91%; animation-duration: 13s; animation-delay: 4s; }
 
-@keyframes rise {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    15% { opacity: 1; }
-    100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+@keyframes riseFire {
+    0% { transform: translateY(0) translateX(0) scale(0.3); opacity: 0; }
+    15% { opacity: 1; transform: translateY(-20vh) translateX(15px) scale(1); }
+    50% { transform: translateY(-55vh) translateX(-20px) scale(0.8); opacity: 0.9; }
+    80% { transform: translateY(-85vh) translateX(10px) scale(0.5); opacity: 0.5; }
+    100% { transform: translateY(-110vh) translateX(-5px) scale(0); opacity: 0; }
 }
 
+/* Camadas de faíscas */
+.hero-embers span:nth-child(1)  { left: 10%; width: 2px; height: 2px; animation-duration: 3.5s; animation-delay: 0s; }
+.hero-embers span:nth-child(2)  { left: 25%; width: 2px; height: 2px; animation-duration: 4.2s; animation-delay: 1s; }
+.hero-embers span:nth-child(3)  { left: 40%; width: 3px; height: 3px; animation-duration: 3.8s; animation-delay: 2.5s; }
+.hero-embers span:nth-child(4)  { left: 55%; width: 2px; height: 2px; animation-duration: 4.5s; animation-delay: 0.5s; }
+.hero-embers span:nth-child(5)  { left: 70%; width: 2px; height: 2px; animation-duration: 3.2s; animation-delay: 3s; }
+.hero-embers span:nth-child(6)  { left: 85%; width: 3px; height: 3px; animation-duration: 4.8s; animation-delay: 1.5s; }
+.hero-embers span:nth-child(7)  { left: 15%; width: 2px; height: 2px; animation-duration: 5s; animation-delay: 4s; }
+.hero-embers span:nth-child(8)  { left: 65%; width: 2px; height: 2px; animation-duration: 3.5s; animation-delay: 2s; }
+.hero-embers span:nth-child(9)  { left: 35%; width: 3px; height: 3px; animation-duration: 4.2s; animation-delay: 0.8s; }
+.hero-embers span:nth-child(10) { left: 90%; width: 2px; height: 2px; animation-duration: 3.8s; animation-delay: 3.5s; }
+.hero-embers span:nth-child(11) { left: 5%;  width: 4px; height: 4px; animation-duration: 5.5s; animation-delay: 1.2s; }
+.hero-embers span:nth-child(12) { left: 20%; width: 5px; height: 5px; animation-duration: 6.5s; animation-delay: 4.5s; }
+.hero-embers span:nth-child(13) { left: 45%; width: 4px; height: 4px; animation-duration: 5.8s; animation-delay: 2.8s; }
+.hero-embers span:nth-child(14) { left: 60%; width: 5px; height: 5px; animation-duration: 6s; animation-delay: 0.2s; }
+.hero-embers span:nth-child(15) { left: 75%; width: 4px; height: 4px; animation-duration: 5.2s; animation-delay: 3.2s; }
+.hero-embers span:nth-child(16) { left: 95%; width: 5px; height: 5px; animation-duration: 6.8s; animation-delay: 1.8s; }
+.hero-embers span:nth-child(17) { left: 50%; width: 4px; height: 4px; animation-duration: 5.5s; animation-delay: 5s; }
+.hero-embers span:nth-child(18) { left: 30%; width: 5px; height: 5px; animation-duration: 6.2s; animation-delay: 2.2s; }
+.hero-embers span:nth-child(19) { left: 12%; width: 7px; height: 7px; animation-duration: 8s; animation-delay: 0.4s; }
+.hero-embers span:nth-child(20) { left: 82%; width: 8px; height: 8px; animation-duration: 9s; animation-delay: 2.5s; }
+.hero-embers span:nth-child(21) { left: 48%; width: 6px; height: 6px; animation-duration: 7.5s; animation-delay: 4.8s; }
+.hero-embers span:nth-child(22) { left: 72%; width: 7px; height: 7px; animation-duration: 8.5s; animation-delay: 1.5s; }
+
+/* ============ CONTEÚDO DO HERO ============ */
 .hero-content {
     position: relative;
     z-index: 3;
@@ -284,6 +310,125 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
+/* ============ MODAL DE DELIVERY ============ */
+.delivery-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.delivery-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.delivery-box {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--char-2) 100%);
+    border-radius: 24px;
+    padding: 40px 32px;
+    max-width: 420px;
+    width: 100%;
+    border: 1px solid var(--line);
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.4s var(--ease);
+}
+
+.delivery-modal.active .delivery-box {
+    transform: translateY(0);
+}
+
+.delivery-box h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 8px;
+}
+
+.delivery-box p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 28px;
+    font-weight: 300;
+}
+
+.delivery-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.delivery-option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.delivery-option i {
+    font-size: 1.4rem;
+    width: 30px;
+    text-align: center;
+}
+
+/* Cores específicas das marcas */
+.delivery-option.deliveroo {
+    background: rgba(0, 204, 188, 0.1);
+    color: #00CCBC;
+    border-color: rgba(0, 204, 188, 0.3);
+}
+.delivery-option.deliveroo:hover {
+    background: #00CCBC;
+    color: var(--char);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 204, 188, 0.4);
+}
+
+.delivery-option.ubereats {
+    background: rgba(6, 193, 103, 0.1);
+    color: #06C167;
+    border-color: rgba(6, 193, 103, 0.3);
+}
+.delivery-option.ubereats:hover {
+    background: #06C167;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(6, 193, 103, 0.4);
+}
+
+.close-delivery {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 8px;
+}
+.close-delivery:hover {
+    color: var(--cream);
+}
+
 /* ============ RESPONSIVIDADE ============ */
 @media (max-width: 768px) {
     .hero { padding: 40px 20px 30px; }
@@ -292,6 +437,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     .btn-primary, .btn-ghost { width: 100%; max-width: 280px; justify-content: center; }
     .hero-meta { gap: 12px; }
     .hero-meta-item { font-size: 0.72rem; }
+    .delivery-box { padding: 32px 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -312,10 +458,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 </head>
 <body>
 
-<!-- HERO (Apenas a parte do print) -->
+<!-- HERO -->
 <section class="hero">
     <div class="hero-embers" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span>
     </div>
 
     <div class="hero-content">
@@ -325,30 +475,85 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 
         <div class="hero-badge">
             <span class="dot"></span>
-            Brazilian Churrasco · Temple Bar
+            Brazilian Cousine · Temple Bar
         </div>
 
         <h1>Fire. Flavor. <em>Soul.</em></h1>
-        <p class="hero-sub">Authentic Brazilian churrasco in the heart of Dublin</p>
+        <p class="hero-sub">Authentic Brazilian cousine in the heart of Dublin</p>
 
         <div class="hero-meta">
-            <span class="hero-meta-item"><i class="fas fa-clock"></i> Open daily · 11:30am–9pm</span>
+            <!-- Horário atualizado para 8pm -->
+            <span class="hero-meta-item"><i class="fas fa-clock"></i> Open daily · 11:30am–8pm</span>
             <span class="hero-meta-item"><i class="fas fa-fire"></i> Premium cuts</span>
             <span class="hero-meta-item"><i class="fas fa-map-marker-alt"></i> 8 Essex Street East</span>
         </div>
 
         <div class="hero-actions">
-            <!-- O href="#menu" pode ser alterado futuramente para a âncora da sua nova seção -->
             <a href="#" class="btn-primary">
                 Explore Menu <i class="fas fa-arrow-right"></i>
             </a>
-            <a href="https://deliveroo.ie/menu/Dublin/city-hall/fabis-grill-temple-bar?day=today&geohash=gc7x2yq7c5xq&time=ASAP"
-               target="_blank" rel="noopener noreferrer" class="btn-ghost">
+            <!-- Botão único de Delivery que abre o modal -->
+            <button class="btn-ghost" onclick="openDeliveryModal()">
                <i class="fas fa-motorcycle"></i> Delivery
-            </a>
+            </button>
         </div>
     </div>
 </section>
+
+<!-- MODAL DE OPÇÕES DE DELIVERY -->
+<div id="deliveryModal" class="delivery-modal" onclick="closeDeliveryModalOnClick(event)">
+    <div class="delivery-box" onclick="event.stopPropagation()">
+        <h2>Order Delivery</h2>
+        <p>Choose your preferred delivery partner</p>
+        
+        <div class="delivery-options">
+            <!-- Substitua o href pelo link real do Deliveroo do Fabi's Grill -->
+            <a href="https://deliveroo.ie/menu/Dublin/city-hall/fabis-grill-temple-bar?day=today&geohash=gc7x2yq7c5xq&time=ASAP" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="delivery-option deliveroo">
+                <i class="fas fa-motorcycle"></i>
+                Deliveroo
+            </a>
+            
+            <!-- Substitua o href pelo link real do Uber Eats do Fabi's Grill -->
+            <a href="https://www.ubereats.com/ie" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="delivery-option ubereats">
+                <i class="fas fa-motorcycle"></i>
+                Uber Eats
+            </a>
+        </div>
+        
+        <button class="close-delivery" onclick="closeDeliveryModal()">Cancel</button>
+    </div>
+</div>
+
+<script>
+    function openDeliveryModal() {
+        document.getElementById('deliveryModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDeliveryModal() {
+        document.getElementById('deliveryModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function closeDeliveryModalOnClick(event) {
+        if (event.target === document.getElementById('deliveryModal')) {
+            closeDeliveryModal();
+        }
+    }
+
+    // Fecha o modal ao apertar a tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeDeliveryModal();
+        }
+    });
+</script>
 
 </body>
 </html>
