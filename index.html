@@ -74,7 +74,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ember); }
 
-/* ============ BOTÃO MENU FLUTUANTE (Padrão do Site) ============ */
+/* ============ BOTÃO MENU FLUTUANTE ============ */
 .menu-toggle-btn {
     position: fixed;
     top: 24px;
@@ -156,8 +156,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     border-bottom: 1px solid var(--line-soft);
 }
 
+/* Logo no Menu Lateral Ajustada */
 .sidebar-header img {
-    max-height: 50px;
+    max-height: 40px;
+    width: auto;
+    display: block;
 }
 
 .close-sidebar {
@@ -508,27 +511,18 @@ footer {
     font-weight: 600;
 }
 
+/* Logo no Rodapé Ajustada */
 .footer-brand .logo {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--cream);
+    display: inline-block;
+    margin-bottom: 20px;
     text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
 }
-.footer-brand .logo .flame {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
-    color: var(--char);
-    font-size: 0.95rem;
+.footer-brand .logo img {
+    max-height: 50px;
+    width: auto;
+    display: block;
 }
+
 .footer-brand p {
     color: var(--muted);
     font-size: 0.85rem;
@@ -712,7 +706,10 @@ footer {
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <nav class="sidebar-menu" id="sidebarMenu">
     <div class="sidebar-header">
-        <img src="logo-fabis.png" alt="Fabi's Grill">
+        <!-- Logo Ajustada Aqui -->
+        <a href="#" style="text-decoration: none;">
+            <img src="logo-fabis.png" alt="Fabi's Grill">
+        </a>
         <button class="close-sidebar" id="closeMenu" aria-label="Close menu">&times;</button>
     </div>
     
@@ -747,7 +744,6 @@ footer {
     <div class="sidebar-footer">
         <p><i class="fas fa-phone-alt"></i> (01) 444 8755<br><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</p>
         <div class="sidebar-socials">
-            <!-- Instagram e Facebook Configurados -->
             <a href="https://www.instagram.com/fabisgrilltemplebar" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="https://www.facebook.com/search/top?q=fabisgrill%20temple%20bar" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="#" aria-label="Tripadvisor"><i class="fab fa-tripadvisor"></i></a>
@@ -800,13 +796,12 @@ footer {
     <div class="footer-grid">
         
         <div class="footer-brand">
+            <!-- Logo Ajustada Aqui -->
             <a href="#" class="logo">
-                <span class="flame">🔥</span>
-                FABI'S <em>GRILL</em>
+                <img src="logo-fabis.png" alt="Fabi's Grill">
             </a>
             <p>Authentic Brazilian cousine in the heart of Temple Bar. Fire, flavour and soul in every dish since 2019.</p>
             <div class="social-links">
-                <!-- Instagram e Facebook Configurados -->
                 <a href="https://www.instagram.com/fabisgrilltemplebar" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="https://www.facebook.com/search/top?q=fabisgrill%20temple%20bar" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" aria-label="Tripadvisor"><i class="fab fa-tripadvisor"></i></a>
