@@ -28,6 +28,10 @@
     --gold-bright: #eeb75e;
     --cream: #f4ead9;
     --muted: #a89680;
+    
+    /* Cor exata do botão da imagem */
+    --btn-gold: #b09e75; 
+    
     --font-display: 'Fraunces', Georgia, serif;
     --font-body: 'Work Sans', -apple-system, sans-serif;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -72,6 +76,173 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 ::-webkit-scrollbar-track { background: var(--char-2); }
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ember); }
+
+/* ============ BOTÃO MENU FLUTUANTE (Idêntico à imagem) ============ */
+.menu-toggle-btn {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background-color: var(--btn-gold);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s var(--ease), background-color 0.3s;
+}
+
+.menu-toggle-btn:hover {
+    transform: scale(1.05);
+    background-color: #c2b086; /* Um tom levemente mais claro no hover */
+}
+
+/* As linhas brancas */
+.menu-toggle-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* ============ SIDEBAR (MENU LATERAL) ============ */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    height: 100dvh;
+    background: var(--char);
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s var(--ease);
+    border-left: 1px solid var(--line);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+}
+
+.sidebar-menu.active {
+    right: 0;
+}
+
+/* Header da Sidebar */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.sidebar-header img {
+    max-height: 50px;
+}
+
+.close-sidebar {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-sidebar:hover {
+    color: var(--cream);
+}
+
+/* Links da Sidebar */
+.sidebar-links {
+    list-style: none;
+    padding: 20px 0;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sidebar-links li {
+    padding: 0 30px;
+}
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 0;
+    text-decoration: none;
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(61, 44, 29, 0.4);
+    transition: var(--transition);
+}
+
+.sidebar-links a:hover {
+    color: var(--gold-bright);
+    padding-left: 10px;
+}
+
+.sidebar-links a i {
+    color: var(--ember);
+    font-size: 1rem;
+    width: 24px;
+    text-align: center;
+}
+
+/* Footer da Sidebar */
+.sidebar-footer {
+    padding: 30px;
+    border-top: 1px solid var(--line-soft);
+    background: var(--char-2);
+}
+
+.sidebar-footer p {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.sidebar-socials {
+    display: flex;
+    gap: 15px;
+}
+
+.sidebar-socials a {
+    color: var(--cream);
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.sidebar-socials a:hover {
+    color: var(--ember);
+}
 
 /* ============ HERO ============ */
 .hero {
@@ -502,6 +673,8 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .menu-toggle-btn { top: 16px; right: 16px; width: 50px; height: 50px; }
+    
     .hero { padding: 40px 20px 30px; }
     .hero-logo-wrap { width: 140px; }
     .hero-actions { flex-direction: column; align-items: center; }
@@ -535,6 +708,60 @@ footer {
 </head>
 <body>
 
+<!-- BOTÃO FLUTUANTE (Canto Superior Direito) -->
+<button class="menu-toggle-btn" id="openMenu" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<!-- SIDEBAR MENU LATERAL -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<nav class="sidebar-menu" id="sidebarMenu">
+    <div class="sidebar-header">
+        <img src="logo-fabis.png" alt="Fabi's Grill">
+        <button class="close-sidebar" id="closeMenu" aria-label="Close menu">&times;</button>
+    </div>
+    
+    <ul class="sidebar-links">
+        <li>
+            <a href="#" onclick="openBookingModal(); closeSidebar();">
+                <i class="far fa-calendar-alt"></i> Book a Table
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="openDeliveryModal(); closeSidebar();">
+                <i class="fas fa-motorcycle"></i> Order Delivery
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-utensils"></i> Our Menu
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-info-circle"></i> About Us
+            </a>
+        </li>
+        <li>
+            <a href="#contact">
+                <i class="fas fa-map-marker-alt"></i> Find Us
+            </a>
+        </li>
+    </ul>
+    
+    <div class="sidebar-footer">
+        <p><i class="fas fa-phone-alt"></i> (01) 444 8755<br><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</p>
+        <div class="sidebar-socials">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-tripadvisor"></i></a>
+        </div>
+    </div>
+</nav>
+
 <!-- HERO -->
 <section class="hero">
     <div class="hero-embers" aria-hidden="true">
@@ -561,7 +788,6 @@ footer {
         <div class="hero-meta">
             <span class="hero-meta-item"><i class="fas fa-clock"></i> Open daily · 11:30am–8pm</span>
             <span class="hero-meta-item"><i class="fas fa-fire"></i> Premium cuts</span>
-            <!-- Endereço no Hero atualizado -->
             <span class="hero-meta-item"><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</span>
         </div>
 
@@ -580,7 +806,6 @@ footer {
 <footer id="contact">
     <div class="footer-grid">
         
-        <!-- Coluna 1: Brand & Social -->
         <div class="footer-brand">
             <a href="#" class="logo">
                 <span class="flame">🔥</span>
@@ -594,18 +819,16 @@ footer {
             </div>
         </div>
 
-        <!-- Coluna 2: Links Rápidos -->
         <div class="footer-col">
             <h4>Quick Links</h4>
             <ul class="footer-links">
                 <li><a href="#">Our Menu</a></li>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#">Reservations</a></li>
+                <li><a href="#" onclick="openBookingModal(); return false;">Reservations</a></li>
                 <li><a href="#">Privacy Policy</a></li>
             </ul>
         </div>
 
-        <!-- Coluna 3: Horários -->
         <div class="footer-col">
             <h4>Opening Hours</h4>
             <ul class="footer-contact">
@@ -614,7 +837,6 @@ footer {
             </ul>
         </div>
 
-        <!-- Coluna 4: Contato (Atualizado) -->
         <div class="footer-col">
             <h4>Contact Us</h4>
             <ul class="footer-contact">
@@ -624,7 +846,6 @@ footer {
                 </li>
                 <li>
                     <i class="fas fa-phone-alt"></i> 
-                    <!-- Link tel: para permitir ligação direta no celular -->
                     <a href="tel:+35314448755" style="color: inherit; text-decoration: none;">(01) 444 8755</a>
                 </li>
                 <li><i class="fas fa-envelope"></i> hello@fabisgrill.ie</li>
@@ -633,7 +854,6 @@ footer {
 
     </div>
 
-    <!-- Copyright -->
     <div class="footer-bottom">
         <span>© 2026 Fabi's Grill. All rights reserved.</span>
         <div class="developer-credit">
@@ -642,7 +862,7 @@ footer {
     </div>
 </footer>
 
-<!-- MODAL DE OPÇÕES DE DELIVERY -->
+<!-- MODAL DE DELIVERY -->
 <div id="deliveryModal" class="delivery-modal" onclick="closeDeliveryModalOnClick(event)">
     <div class="delivery-box" onclick="event.stopPropagation()">
         <h2>Order Delivery</h2>
@@ -664,7 +884,49 @@ footer {
     </div>
 </div>
 
+<!-- MODAL DE BOOKING (Reserva) -->
+<div id="bookingModal" class="delivery-modal" onclick="closeBookingModalOnClick(event)">
+    <div class="delivery-box" onclick="event.stopPropagation()">
+        <h2>Book a Table</h2>
+        <p>Reservations will open shortly</p>
+        
+        <div class="delivery-options" style="gap: 15px;">
+            <a href="tel:+35314448755" class="delivery-option deliveroo" style="background: rgba(217,168,96,0.1); color: var(--gold-bright); border-color: rgba(217,168,96,0.3);">
+                <i class="fas fa-phone-alt"></i> Call Us
+            </a>
+            <a href="mailto:hello@fabisgrill.ie" class="delivery-option ubereats" style="background: rgba(217,168,96,0.1); color: var(--gold-bright); border-color: rgba(217,168,96,0.3);">
+                <i class="fas fa-envelope"></i> Send Email
+            </a>
+        </div>
+        
+        <button class="close-delivery" onclick="closeBookingModal()">Cancel</button>
+    </div>
+</div>
+
 <script>
+    /* === SIDEBAR MENU === */
+    const sidebarMenu = document.getElementById('sidebarMenu');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const openMenuBtn = document.getElementById('openMenu');
+    const closeMenuBtn = document.getElementById('closeMenu');
+
+    function openSidebar() {
+        sidebarMenu.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        sidebarMenu.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openMenuBtn.addEventListener('click', openSidebar);
+    closeMenuBtn.addEventListener('click', closeSidebar);
+    sidebarOverlay.addEventListener('click', closeSidebar);
+
+    /* === MODAL DELIVERY === */
     function openDeliveryModal() {
         document.getElementById('deliveryModal').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -681,9 +943,29 @@ footer {
         }
     }
 
+    /* === MODAL BOOKING === */
+    function openBookingModal() {
+        document.getElementById('bookingModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeBookingModal() {
+        document.getElementById('bookingModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function closeBookingModalOnClick(event) {
+        if (event.target === document.getElementById('bookingModal')) {
+            closeBookingModal();
+        }
+    }
+
+    /* === TECLA ESC === */
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeDeliveryModal();
+            closeBookingModal();
+            closeSidebar();
         }
     });
 </script>
