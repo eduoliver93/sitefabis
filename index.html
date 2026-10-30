@@ -22,15 +22,12 @@
     --panel-3: #2f2318;
     --line: #3d2c1d;
     --line-soft: rgba(217,168,96,0.12);
-    --ember: #e2762a;
+    --ember: #e2762a; /* Laranja principal */
     --ember-deep: #b34d16;
     --gold: #d9a860;
     --gold-bright: #eeb75e;
     --cream: #f4ead9;
     --muted: #a89680;
-    
-    /* Cor exata do botão da imagem */
-    --btn-gold: #b09e75; 
     
     --font-display: 'Fraunces', Georgia, serif;
     --font-body: 'Work Sans', -apple-system, sans-serif;
@@ -77,14 +74,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ember); }
 
-/* ============ BOTÃO MENU FLUTUANTE (Idêntico à imagem) ============ */
+/* ============ BOTÃO MENU FLUTUANTE (Padrão do Site) ============ */
 .menu-toggle-btn {
     position: fixed;
     top: 24px;
     right: 24px;
     width: 56px;
     height: 56px;
-    background-color: var(--btn-gold);
+    background: linear-gradient(135deg, var(--ember), var(--ember-deep));
     border-radius: 50%;
     border: none;
     cursor: pointer;
@@ -94,23 +91,22 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     align-items: center;
     justify-content: center;
     gap: 5px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: transform 0.3s var(--ease), background-color 0.3s;
+    box-shadow: 0 8px 22px rgba(226,118,42,0.4);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s;
 }
 
 .menu-toggle-btn:hover {
-    transform: scale(1.05);
-    background-color: #c2b086; /* Um tom levemente mais claro no hover */
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(226,118,42,0.6);
+    filter: brightness(1.08);
 }
 
-/* As linhas brancas */
 .menu-toggle-btn span {
     display: block;
-    width: 24px;
+    width: 22px;
     height: 2px;
-    background-color: #ffffff;
+    background-color: var(--cream);
     border-radius: 2px;
-    transition: 0.3s;
 }
 
 /* ============ SIDEBAR (MENU LATERAL) ============ */
@@ -512,7 +508,6 @@ footer {
     font-weight: 600;
 }
 
-/* Coluna 1: Brand */
 .footer-brand .logo {
     font-family: var(--font-display);
     font-size: 1.5rem;
@@ -543,7 +538,6 @@ footer {
     max-width: 280px;
 }
 
-/* Redes Sociais */
 .social-links {
     display: flex;
     gap: 10px;
@@ -567,7 +561,6 @@ footer {
     transform: translateY(-3px);
 }
 
-/* Links Rápidos */
 .footer-links { list-style: none; }
 .footer-links li { margin-bottom: 12px; }
 .footer-links a {
@@ -579,7 +572,6 @@ footer {
 }
 .footer-links a:hover { color: var(--gold-bright); padding-left: 4px; }
 
-/* Contato com Ícones */
 .footer-contact { list-style: none; }
 .footer-contact li {
     display: flex;
@@ -597,7 +589,6 @@ footer {
     flex-shrink: 0;
 }
 
-/* Copyright */
 .footer-bottom {
     max-width: 1300px;
     margin: 0 auto;
@@ -622,7 +613,7 @@ footer {
 }
 .developer-credit strong { color: var(--gold); font-weight: 600; }
 
-/* ============ MODAL DE DELIVERY ============ */
+/* ============ MODAIS ============ */
 .delivery-modal {
     display: none;
     position: fixed;
@@ -674,6 +665,7 @@ footer {
 
 @media (max-width: 768px) {
     .menu-toggle-btn { top: 16px; right: 16px; width: 50px; height: 50px; }
+    .menu-toggle-btn span { width: 20px; }
     
     .hero { padding: 40px 20px 30px; }
     .hero-logo-wrap { width: 140px; }
@@ -708,7 +700,7 @@ footer {
 </head>
 <body>
 
-<!-- BOTÃO FLUTUANTE (Canto Superior Direito) -->
+<!-- BOTÃO FLUTUANTE -->
 <button class="menu-toggle-btn" id="openMenu" aria-label="Open menu">
     <span></span>
     <span></span>
@@ -755,9 +747,10 @@ footer {
     <div class="sidebar-footer">
         <p><i class="fas fa-phone-alt"></i> (01) 444 8755<br><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</p>
         <div class="sidebar-socials">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-tripadvisor"></i></a>
+            <!-- Instagram e Facebook Configurados -->
+            <a href="https://www.instagram.com/fabisgrilltemplebar" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/search/top?q=fabisgrill%20temple%20bar" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Tripadvisor"><i class="fab fa-tripadvisor"></i></a>
         </div>
     </div>
 </nav>
@@ -813,8 +806,9 @@ footer {
             </a>
             <p>Authentic Brazilian cousine in the heart of Temple Bar. Fire, flavour and soul in every dish since 2019.</p>
             <div class="social-links">
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <!-- Instagram e Facebook Configurados -->
+                <a href="https://www.instagram.com/fabisgrilltemplebar" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/search/top?q=fabisgrill%20temple%20bar" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" aria-label="Tripadvisor"><i class="fab fa-tripadvisor"></i></a>
             </div>
         </div>
@@ -884,7 +878,7 @@ footer {
     </div>
 </div>
 
-<!-- MODAL DE BOOKING (Reserva) -->
+<!-- MODAL DE BOOKING -->
 <div id="bookingModal" class="delivery-modal" onclick="closeBookingModalOnClick(event)">
     <div class="delivery-box" onclick="event.stopPropagation()">
         <h2>Book a Table</h2>
