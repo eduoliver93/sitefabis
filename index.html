@@ -83,6 +83,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 .sidebar-overlay.active { opacity: 1; visibility: visible; }
 .sidebar-menu { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100dvh; background: var(--char); z-index: 1002; display: flex; flex-direction: column; transition: right 0.3s var(--ease); border-left: 1px solid var(--line); box-shadow: -10px 0 30px rgba(0,0,0,0.5); will-change: right; }
 .sidebar-menu.active { right: 0; }
+
+/* === SWIPE PARA FECHAR === */
+.sidebar-menu { touch-action: pan-y; overscroll-behavior: contain; }
+.sidebar-menu.dragging { transition: none !important; }
+.sidebar-overlay.dragging { transition: none !important; }
+
 .sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 30px; border-bottom: 1px solid var(--line-soft); }
 .sidebar-header img { max-height: 40px; width: auto; display: block; }
 .close-sidebar { background: transparent; border: none; color: var(--muted); font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
@@ -122,7 +128,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     100% { transform: translate3d(-5px, -110vh, 0) scale(0); opacity: 0; } 
 }
 
-/* [O restante das animações das faíscas (nth-child) continua aqui, mas otimizado para translate3d] */
 .hero-embers span:nth-child(1) { left: 10%; width: 2px; height: 2px; animation-duration: 3.5s; animation-delay: 0s; } .hero-embers span:nth-child(2) { left: 25%; width: 2px; height: 2px; animation-duration: 4.2s; animation-delay: 1s; } .hero-embers span:nth-child(3) { left: 40%; width: 3px; height: 3px; animation-duration: 3.8s; animation-delay: 2.5s; } .hero-embers span:nth-child(4) { left: 55%; width: 2px; height: 2px; animation-duration: 4.5s; animation-delay: 0.5s; } .hero-embers span:nth-child(5) { left: 70%; width: 2px; height: 2px; animation-duration: 3.2s; animation-delay: 3s; } .hero-embers span:nth-child(6) { left: 85%; width: 3px; height: 3px; animation-duration: 4.8s; animation-delay: 1.5s; } .hero-embers span:nth-child(7) { left: 15%; width: 2px; height: 2px; animation-duration: 5s; animation-delay: 4s; } .hero-embers span:nth-child(8) { left: 65%; width: 2px; height: 2px; animation-duration: 3.5s; animation-delay: 2s; } .hero-embers span:nth-child(9) { left: 35%; width: 3px; height: 3px; animation-duration: 4.2s; animation-delay: 0.8s; } .hero-embers span:nth-child(10) { left: 90%; width: 2px; height: 2px; animation-duration: 3.8s; animation-delay: 3.5s; } .hero-embers span:nth-child(11) { left: 5%; width: 4px; height: 4px; animation-duration: 5.5s; animation-delay: 1.2s; } .hero-embers span:nth-child(12) { left: 20%; width: 5px; height: 5px; animation-duration: 6.5s; animation-delay: 4.5s; } .hero-embers span:nth-child(13) { left: 45%; width: 4px; height: 4px; animation-duration: 5.8s; animation-delay: 2.8s; } .hero-embers span:nth-child(14) { left: 60%; width: 5px; height: 5px; animation-duration: 6s; animation-delay: 0.2s; } .hero-embers span:nth-child(15) { left: 75%; width: 4px; height: 4px; animation-duration: 5.2s; animation-delay: 3.2s; } .hero-embers span:nth-child(16) { left: 95%; width: 5px; height: 5px; animation-duration: 6.8s; animation-delay: 1.8s; } .hero-embers span:nth-child(17) { left: 50%; width: 4px; height: 4px; animation-duration: 5.5s; animation-delay: 5s; } .hero-embers span:nth-child(18) { left: 30%; width: 5px; height: 5px; animation-duration: 6.2s; animation-delay: 2.2s; } .hero-embers span:nth-child(19) { left: 12%; width: 7px; height: 7px; animation-duration: 8s; animation-delay: 0.4s; } .hero-embers span:nth-child(20) { left: 82%; width: 8px; height: 8px; animation-duration: 9s; animation-delay: 2.5s; } .hero-embers span:nth-child(21) { left: 48%; width: 6px; height: 6px; animation-duration: 7.5s; animation-delay: 4.8s; } .hero-embers span:nth-child(22) { left: 72%; width: 7px; height: 7px; animation-duration: 8.5s; animation-delay: 1.5s; }
 
 .hero-content { position: relative; z-index: 3; max-width: 850px; will-change: transform; }
@@ -477,6 +482,88 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
     openMenuBtn.addEventListener('click', openSidebar);
     closeMenuBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
+
+    /* === SWIPE PARA FECHAR A SIDEBAR === */
+    (function () {
+        let startX = 0, startY = 0, currentX = 0, startTime = 0;
+        let dragging = false, locked = null; // locked: 'h' | 'v' | null
+
+        sidebarMenu.addEventListener('touchstart', function (e) {
+            if (!sidebarMenu.classList.contains('active')) return;
+            const t = e.touches[0];
+            startX = t.clientX; startY = t.clientY; currentX = 0;
+            startTime = Date.now();
+            dragging = true; locked = null;
+        }, { passive: true });
+
+        sidebarMenu.addEventListener('touchmove', function (e) {
+            if (!dragging) return;
+            const t = e.touches[0];
+            const dx = t.clientX - startX;
+            const dy = t.clientY - startY;
+
+            // Decide a direção do gesto (horizontal x vertical)
+            if (!locked) {
+                if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+                locked = (Math.abs(dx) > Math.abs(dy)) ? 'h' : 'v';
+                if (locked === 'h') {
+                    sidebarMenu.classList.add('dragging');
+                    sidebarOverlay.classList.add('dragging');
+                }
+            }
+            if (locked !== 'h') return;
+
+            currentX = Math.max(0, dx); // só permite arrastar para a direita
+            const width = sidebarMenu.offsetWidth;
+            sidebarMenu.style.transform = 'translateX(' + currentX + 'px)';
+            sidebarOverlay.style.opacity = Math.max(0, 1 - currentX / width);
+        }, { passive: true });
+
+        function endDrag() {
+            if (!dragging) return;
+            dragging = false;
+            if (locked !== 'h') return;
+
+            const width = sidebarMenu.offsetWidth;
+            const elapsed = Math.max(1, Date.now() - startTime);
+            const velocity = currentX / elapsed; // px/ms
+            const shouldClose = currentX > width * 0.3 || velocity > 0.5;
+
+            sidebarMenu.classList.remove('dragging');
+            sidebarOverlay.classList.remove('dragging');
+            sidebarMenu.style.transition = 'transform 0.3s var(--ease)';
+            sidebarOverlay.style.transition = 'opacity 0.3s var(--ease)';
+
+            if (shouldClose) {
+                // Termina de deslizar para fora da tela
+                sidebarMenu.style.transform = 'translateX(100%)';
+                sidebarOverlay.style.opacity = 0;
+                setTimeout(function () {
+                    // Reseta sem animação para não "piscar" na tela
+                    sidebarMenu.style.transition = 'none';
+                    closeSidebar();
+                    sidebarMenu.style.transform = '';
+                    sidebarOverlay.style.opacity = '';
+                    void sidebarMenu.offsetWidth; // força reflow
+                    sidebarMenu.style.transition = '';
+                    sidebarOverlay.style.transition = '';
+                }, 300);
+            } else {
+                // Volta suavemente para o lugar
+                sidebarMenu.style.transform = 'translateX(0)';
+                sidebarOverlay.style.opacity = 1;
+                setTimeout(function () {
+                    sidebarMenu.style.transition = '';
+                    sidebarOverlay.style.transition = '';
+                    sidebarMenu.style.transform = '';
+                    sidebarOverlay.style.opacity = '';
+                }, 300);
+            }
+        }
+
+        sidebarMenu.addEventListener('touchend', endDrag);
+        sidebarMenu.addEventListener('touchcancel', endDrag);
+    })();
 
     /* === LIGHTBOX === */
     const lightbox = document.getElementById('lightbox');
