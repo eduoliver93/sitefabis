@@ -25,7 +25,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 html { 
-    /* Removido o smooth global para não quebrar a física nativa do celular */
     -webkit-text-size-adjust: 100%;
 }
 
@@ -35,7 +34,6 @@ body {
     font-family: var(--font-body); color: var(--cream); overflow-x: hidden; line-height: 1.55;
     -webkit-font-smoothing: antialiased; touch-action: pan-y; 
     display: flex; flex-direction: column; min-height: 100vh;
-    /* Otimização de Scroll Nativo iOS */
     -webkit-overflow-scrolling: touch; 
 }
 
@@ -115,7 +113,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
     background: radial-gradient(circle at 30% 30%, #fff, var(--gold-bright) 40%, var(--ember) 80%); 
     box-shadow: 0 0 6px #fff, 0 0 12px var(--gold-bright), 0 0 24px var(--ember), 0 0 50px rgba(226,118,42,0.4); 
     animation: riseFire linear infinite; opacity: 0; 
-    /* Aceleração de Hardware para não travar o scroll */
     will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -278,10 +275,10 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
         <li><a href="#" onclick="openDeliveryModal(); closeSidebar();"><i class="fas fa-motorcycle"></i> Order Delivery</a></li>
         <li><a href="#" onclick="showFullMenu(); closeSidebar(); return false;"><i class="fas fa-utensils"></i> Our Menu</a></li>
         <li><a href="#"><i class="fas fa-info-circle"></i> About Us</a></li>
-        <li><a href="#contact" onclick="closeSidebar();"><i class="fas fa-map-marker-alt"></i> Find Us</a></li>
+        <li><a href="#" onclick="openGoogleMaps(); return false;"><i class="fas fa-map-marker-alt"></i> Find Us</a></li>
     </ul>
     <div class="sidebar-footer">
-        <p><i class="fas fa-phone-alt"></i> (01) 444 8755<br><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</p>
+        <p><i class="fas fa-phone-alt"></i> (01) 444 8755<br><i class="fas fa-map-marker-alt"></i> <a href="#" onclick="openGoogleMaps(); return false;" style="color: inherit; text-decoration: none;">13 Crown Alley, Dublin 2</a></p>
         <div class="sidebar-socials">
             <a href="https://www.instagram.com/fabisgrilltemplebar" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
             <a href="https://www.facebook.com/search/top?q=fabisgrill%20temple%20bar" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
@@ -304,7 +301,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
             <div class="hero-meta">
                 <span class="hero-meta-item"><i class="fas fa-clock"></i> Open daily · 11:30am–8pm</span>
                 <span class="hero-meta-item"><i class="fas fa-fire"></i> Premium cuts</span>
-                <span class="hero-meta-item"><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</span>
+                <span class="hero-meta-item" style="cursor: pointer;" onclick="openGoogleMaps()"><i class="fas fa-map-marker-alt"></i> 13 Crown Alley, Dublin 2</span>
             </div>
             <div class="hero-actions">
                 <a href="#menu" class="btn-primary">Explore Menu <i class="fas fa-arrow-right"></i></a>
@@ -420,7 +417,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
         <div class="footer-col">
             <h4>Contact Us</h4>
             <ul class="footer-contact">
-                <li><i class="fas fa-map-marker-alt"></i> <span>13 Crown Alley, Dublin 2<br>D02 KW83, County Dublin</span></li>
+                <li><i class="fas fa-map-marker-alt"></i> <a href="#" onclick="openGoogleMaps(); return false;" style="color: inherit; text-decoration: none;">13 Crown Alley, Dublin 2<br>D02 KW83, County Dublin</a></li>
                 <li><i class="fas fa-phone-alt"></i> <a href="tel:+35314448755" style="color: inherit; text-decoration: none;">(01) 444 8755</a></li>
                 <li><i class="fas fa-envelope"></i> hello@fabisgrill.ie</li>
             </ul>
@@ -486,7 +483,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
     /* === SWIPE PARA FECHAR A SIDEBAR === */
     (function () {
         let startX = 0, startY = 0, currentX = 0, startTime = 0;
-        let dragging = false, locked = null; // locked: 'h' | 'v' | null
+        let dragging = false, locked = null;
 
         sidebarMenu.addEventListener('touchstart', function (e) {
             if (!sidebarMenu.classList.contains('active')) return;
@@ -502,7 +499,6 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
             const dx = t.clientX - startX;
             const dy = t.clientY - startY;
 
-            // Decide a direção do gesto (horizontal x vertical)
             if (!locked) {
                 if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
                 locked = (Math.abs(dx) > Math.abs(dy)) ? 'h' : 'v';
@@ -513,7 +509,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
             }
             if (locked !== 'h') return;
 
-            currentX = Math.max(0, dx); // só permite arrastar para a direita
+            currentX = Math.max(0, dx);
             const width = sidebarMenu.offsetWidth;
             sidebarMenu.style.transform = 'translateX(' + currentX + 'px)';
             sidebarOverlay.style.opacity = Math.max(0, 1 - currentX / width);
@@ -526,7 +522,7 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
 
             const width = sidebarMenu.offsetWidth;
             const elapsed = Math.max(1, Date.now() - startTime);
-            const velocity = currentX / elapsed; // px/ms
+            const velocity = currentX / elapsed;
             const shouldClose = currentX > width * 0.3 || velocity > 0.5;
 
             sidebarMenu.classList.remove('dragging');
@@ -535,21 +531,18 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
             sidebarOverlay.style.transition = 'opacity 0.3s var(--ease)';
 
             if (shouldClose) {
-                // Termina de deslizar para fora da tela
                 sidebarMenu.style.transform = 'translateX(100%)';
                 sidebarOverlay.style.opacity = 0;
                 setTimeout(function () {
-                    // Reseta sem animação para não "piscar" na tela
                     sidebarMenu.style.transition = 'none';
                     closeSidebar();
                     sidebarMenu.style.transform = '';
                     sidebarOverlay.style.opacity = '';
-                    void sidebarMenu.offsetWidth; // força reflow
+                    void sidebarMenu.offsetWidth;
                     sidebarMenu.style.transition = '';
                     sidebarOverlay.style.transition = '';
                 }, 300);
             } else {
-                // Volta suavemente para o lugar
                 sidebarMenu.style.transform = 'translateX(0)';
                 sidebarOverlay.style.opacity = 1;
                 setTimeout(function () {
@@ -581,6 +574,15 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
     function closeBookingModalOnClick(event) { if (event.target === document.getElementById('bookingModal')) closeBookingModal(); }
 
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeDeliveryModal(); closeBookingModal(); closeSidebar(); closeLightbox(); } });
+
+    /* === ABRIR GOOGLE MAPS === */
+    function openGoogleMaps() {
+        const address = "13 Crown Alley, Temple Bar, Dublin 2, D02 KW83, Ireland";
+        const encodedAddress = encodeURIComponent(address);
+        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+        window.open(googleMapsUrl, '_blank', 'noopener,noreferrer');
+        closeSidebar();
+    }
 </script>
 
 </body>
