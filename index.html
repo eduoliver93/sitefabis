@@ -79,13 +79,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spac
 /* ============ SIDEBAR ============ */
 .sidebar-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 1001; opacity: 0; visibility: hidden; transition: var(--transition); }
 .sidebar-overlay.active { opacity: 1; visibility: visible; }
-.sidebar-menu { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100dvh; background: var(--char); z-index: 1002; display: flex; flex-direction: column; transition: right 0.3s var(--ease); border-left: 1px solid var(--line); box-shadow: -10px 0 30px rgba(0,0,0,0.5); will-change: right; }
-.sidebar-menu.active { right: 0; }
+
+/* Sidebar agora usa TRANSFORM (não 'right') para compatibilidade total com swipe mobile */
+.sidebar-menu { position: fixed; top: 0; right: 0; width: 100%; max-width: 400px; height: 100dvh; background: var(--char); z-index: 1002; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.45s var(--ease); border-left: 1px solid var(--line); box-shadow: -10px 0 30px rgba(0,0,0,0.5); will-change: transform; }
+.sidebar-menu.active { transform: translateX(0); }
 
 /* === SWIPE PARA FECHAR === */
 .sidebar-menu { touch-action: pan-y; overscroll-behavior: contain; }
-.sidebar-menu.dragging { transition: none !important; }
-.sidebar-overlay.dragging { transition: none !important; }
 
 .sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 30px; border-bottom: 1px solid var(--line-soft); }
 .sidebar-header img { max-height: 40px; width: auto; display: block; }
@@ -474,8 +474,33 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
     const sidebarOverlay = document.getElementById('sidebarOverlay');
     const openMenuBtn = document.getElementById('openMenu');
     const closeMenuBtn = document.getElementById('closeMenu');
-    function openSidebar() { sidebarMenu.classList.add('active'); sidebarOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
-    function closeSidebar() { sidebarMenu.classList.remove('active'); sidebarOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+    let sidebarCloseTimer = null;
+
+    function openSidebar() {
+        clearTimeout(sidebarCloseTimer);
+        sidebarMenu.style.transform = '';
+        sidebarOverlay.style.opacity = '';
+        sidebarMenu.style.transition = '';
+        sidebarOverlay.style.transition = '';
+        sidebarMenu.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        sidebarMenu.style.transform = '';
+        sidebarOverlay.style.opacity = '';
+        sidebarMenu.style.transition = '';
+        sidebarOverlay.style.transition = '';
+        sidebarMenu.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        clearTimeout(sidebarCloseTimer);
+        sidebarCloseTimer = setTimeout(function () {
+            document.body.style.overflow = '';
+        }, 450);
+    }
+
     openMenuBtn.addEventListener('click', openSidebar);
     closeMenuBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
@@ -484,13 +509,17 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
     (function () {
         let startX = 0, startY = 0, currentX = 0, startTime = 0;
         let dragging = false, locked = null;
+        const sidebarWidth = () => sidebarMenu.offsetWidth;
 
         sidebarMenu.addEventListener('touchstart', function (e) {
             if (!sidebarMenu.classList.contains('active')) return;
             const t = e.touches[0];
-            startX = t.clientX; startY = t.clientY; currentX = 0;
+            startX = t.clientX; startY = t.clientY;
+            currentX = 0;
             startTime = Date.now();
             dragging = true; locked = null;
+            sidebarMenu.style.transition = 'none';
+            sidebarOverlay.style.transition = 'none';
         }, { passive: true });
 
         sidebarMenu.addEventListener('touchmove', function (e) {
@@ -502,55 +531,63 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
             if (!locked) {
                 if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
                 locked = (Math.abs(dx) > Math.abs(dy)) ? 'h' : 'v';
-                if (locked === 'h') {
-                    sidebarMenu.classList.add('dragging');
-                    sidebarOverlay.classList.add('dragging');
-                }
             }
-            if (locked !== 'h') return;
 
-            currentX = Math.max(0, dx);
-            const width = sidebarMenu.offsetWidth;
-            sidebarMenu.style.transform = 'translateX(' + currentX + 'px)';
-            sidebarOverlay.style.opacity = Math.max(0, 1 - currentX / width);
-        }, { passive: true });
+            if (locked === 'v') {
+                dragging = false;
+                sidebarMenu.style.transition = '';
+                sidebarOverlay.style.transition = '';
+                return;
+            }
+
+            if (locked === 'h') {
+                e.preventDefault();
+                currentX = Math.max(0, Math.abs(dx));
+                const w = sidebarWidth();
+                const percent = currentX / w;
+                sidebarMenu.style.transform = 'translateX(' + currentX + 'px)';
+                sidebarOverlay.style.opacity = Math.max(0, 1 - percent);
+            }
+        }, { passive: false });
 
         function endDrag() {
             if (!dragging) return;
             dragging = false;
-            if (locked !== 'h') return;
+            if (locked !== 'h') {
+                sidebarMenu.style.transition = '';
+                sidebarOverlay.style.transition = '';
+                return;
+            }
 
-            const width = sidebarMenu.offsetWidth;
+            const w = sidebarWidth();
             const elapsed = Math.max(1, Date.now() - startTime);
             const velocity = currentX / elapsed;
-            const shouldClose = currentX > width * 0.3 || velocity > 0.5;
+            const shouldClose = currentX > w * 0.25 || velocity > 0.4;
 
-            sidebarMenu.classList.remove('dragging');
-            sidebarOverlay.classList.remove('dragging');
-            sidebarMenu.style.transition = 'transform 0.3s var(--ease)';
-            sidebarOverlay.style.transition = 'opacity 0.3s var(--ease)';
+            sidebarMenu.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+            sidebarOverlay.style.transition = 'opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
 
             if (shouldClose) {
                 sidebarMenu.style.transform = 'translateX(100%)';
                 sidebarOverlay.style.opacity = 0;
                 setTimeout(function () {
-                    sidebarMenu.style.transition = 'none';
-                    closeSidebar();
+                    sidebarMenu.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
                     sidebarMenu.style.transform = '';
                     sidebarOverlay.style.opacity = '';
-                    void sidebarMenu.offsetWidth;
                     sidebarMenu.style.transition = '';
                     sidebarOverlay.style.transition = '';
-                }, 300);
+                    document.body.style.overflow = '';
+                }, 450);
             } else {
                 sidebarMenu.style.transform = 'translateX(0)';
                 sidebarOverlay.style.opacity = 1;
                 setTimeout(function () {
-                    sidebarMenu.style.transition = '';
-                    sidebarOverlay.style.transition = '';
                     sidebarMenu.style.transform = '';
                     sidebarOverlay.style.opacity = '';
-                }, 300);
+                    sidebarMenu.style.transition = '';
+                    sidebarOverlay.style.transition = '';
+                }, 450);
             }
         }
 
@@ -575,13 +612,24 @@ footer { background: #080503; padding: 60px 40px 24px; border-top: 1px solid var
 
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeDeliveryModal(); closeBookingModal(); closeSidebar(); closeLightbox(); } });
 
-    /* === ABRIR GOOGLE MAPS === */
+    /* === ABRIR GOOGLE MAPS (compatível com mobile) === */
     function openGoogleMaps() {
         const address = "13 Crown Alley, Temple Bar, Dublin 2, D02 KW83, Ireland";
         const encodedAddress = encodeURIComponent(address);
         const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-        window.open(googleMapsUrl, '_blank', 'noopener,noreferrer');
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        // Fecha a sidebar ANTES de navegar (evita cancelar a navegação no celular)
         closeSidebar();
+
+        // Pequeno delay para garantir que a animação de fechar não seja interrompida
+        setTimeout(function () {
+            if (isMobile) {
+                window.location.href = googleMapsUrl;
+            } else {
+                window.open(googleMapsUrl, '_blank', 'noopener,noreferrer');
+            }
+        }, 50);
     }
 </script>
 
